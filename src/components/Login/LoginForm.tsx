@@ -17,11 +17,10 @@ const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
     setLoading(true);
     try {
       const response = await API.post('/api/token', { username, password });
-      localStorage.setItem('token', response.data.access); // Guardar el token recibido
-      onLoginSuccess(); // Ejecutar la función callback en caso de éxito
+      localStorage.setItem('token', response.data.access);
+      onLoginSuccess();
     } catch (err) {
       setError('Failed to login');
-      console.error(err);
     } finally {
       setLoading(false);
     }

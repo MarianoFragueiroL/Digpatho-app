@@ -1,3 +1,4 @@
+import withAuth from "@/utils/auth/withAuth";
 
 const Home = () => {
     return (
@@ -7,4 +8,4 @@ const Home = () => {
     );
   };
   
-  export default Home;
+  export default withAuth(Home);

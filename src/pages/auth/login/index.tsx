@@ -7,7 +7,7 @@ const LoginPage: React.FC = () => {
   const router = useRouter();
 
   const handleLoginSuccess = () => {
-    router.push('/dashboard'); // Redirigir al usuario al dashboard después del login
+    router.push('/');
   };
 
   return (

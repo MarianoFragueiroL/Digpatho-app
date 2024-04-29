@@ -1,8 +1,14 @@
 
 import axios from 'axios';
 
+
+
+const baseURL = process.env.NODE_ENV === 'production'
+  ? process.env.NEXT_PUBLIC_API_URL_PRODUCTION
+  : process.env.NEXT_PUBLIC_API_URL_DEVELOPMENT;
+
 const axiosClient = axios.create({
-  baseURL: 'http://127.0.0.1:8000/', // Cambia esto por la URL de tu API
+  baseURL: baseURL 
 });
 
 axiosClient.interceptors.request.use((config) => {
