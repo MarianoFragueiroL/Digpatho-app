@@ -2,8 +2,14 @@ import Link from 'next/link';
 import '../styles/global.css'
 import styles from './Navbar.module.css';
 import Image from 'next/image';
+import { useAppContext } from '../context/AppContext';
 
-const Navbar = () => (
+const Navbar: React.FC = () => {
+  const { isLogin } = useAppContext();
+
+  // No renderizar el Navbar si isLogin es true
+  if (isLogin) return null;
+  return (
   <nav className={styles.navbar}>
     <div className={styles.navbarImgcontainer}>
       <img src="/images/Logo4.jpg" alt="Logo" className={styles.navbarLogo}  />
@@ -18,6 +24,6 @@ const Navbar = () => (
       <Link href="/login" className={styles.buttonDemo}>Login</Link>
     </div>
   </nav>
-);
+)};
 
 export default Navbar;

@@ -1,0 +1,8 @@
+.logincontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loginLogo{
+    width: 400px;
+}
