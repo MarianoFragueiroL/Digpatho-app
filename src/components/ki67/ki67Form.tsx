@@ -46,16 +46,13 @@ const Ki67Form: React.FC = () => {
                   headers: { 'Content-Type': 'multipart/form-data' }
                 });
               console.log(`Respuesta para la imagen ${image.id}:`, response.data);
-          
           } catch (err) {
               console.log('error', err);
           } finally {
               console.log('finally');
           }
-  
         console.log('Formulario enviado');
       };
-
     }
   };
 
