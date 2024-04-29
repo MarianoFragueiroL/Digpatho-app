@@ -1,31 +1,34 @@
 import React, { useState } from 'react';
+import API from '../../utils/API';
 
-type ImageFile = File | null;
+type ImageFile = {
+    file: File | null;
+    id: string; // Cambiado de número a string para propósitos de ejemplo
+  };
 
 const Ki67Form: React.FC = () => {
   const [images, setImages] = useState<ImageFile[]>([]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
     if (event.target.files) {
-      const newImages = [...images];
-      newImages[index] = event.target.files[0];
-      setImages(newImages);
+        const file = event.target.files ? event.target.files[0] : null;
+        const newImages = [...images];
+        newImages[index] = { ...newImages[index], file };
+        setImages(newImages);
     }
   };
 
   const handleAddImage = () => {
     if (images.length < 10) {
-      setImages([...images, null]);
+        setImages(prevImages => [
+            ...prevImages,
+            { file: null, id: `image-${prevImages.length}-${new Date().getTime()}` }
+        ]);
     }
-    console.log(images);
     
   };
-  const deleteImage = (index: number) => {
-    console.log(index);
-    
-    const newImages = images.filter((_, i) => i !== index);
-    console.log(newImages);
-    setImages(newImages);
+  const deleteImage = (index:number) => {
+    setImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -33,27 +36,41 @@ const Ki67Form: React.FC = () => {
     // Minimun 1 image upload
     if (images.some(image => image !== null)) {
       const formData = new FormData();
-      images.forEach(image => {
-        if (image) formData.append('images', image);
-      });
+      for (const image of images) {
+        if (image.file) formData.append('image_upload', image.file);;
+        // Aquí iría la llamada a la API para enviar las imágenes
+        // Por ejemplo: await axios.post('tu-api-url', formData);
+          event.preventDefault();
+          try {
+              const response = await API.post('/api/processki67',  formData, {
+                  headers: { 'Content-Type': 'multipart/form-data' }
+                });
+              console.log(`Respuesta para la imagen ${image.id}:`, response.data);
+          
+          } catch (err) {
+              console.log('error', err);
+          } finally {
+              console.log('finally');
+          }
+  
+        console.log('Formulario enviado');
+      };
 
-      // Aquí iría la llamada a la API para enviar las imágenes
-      // Por ejemplo: await axios.post('tu-api-url', formData);
-      console.log('Formulario enviado');
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
+        {images.length < 10 && (
+            <button type="button" onClick={handleAddImage}>+</button>
+        )}
       {images.map((image, index) => (
-        <div key={index}>
-          <input type="file" onChange={(e) => handleImageChange(e, index)} />
-          <button type="button" onClick={()=>deleteImage(index)}>-</button>
+          <div key={image.id}>
+          <input type="file" onChange={(e) => handleImageChange(e, index)} 
+          />
+            <button type="button" onClick={()=>deleteImage(index)}>-</button>
         </div>
       ))}
-      {images.length < 10 && (
-        <button type="button" onClick={handleAddImage}>+</button>
-      )}
       <button type="submit" disabled={images.every(image => image === null)}>Enviar</button>
     </form>
   );
