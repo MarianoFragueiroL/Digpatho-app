@@ -1,4 +1,3 @@
-// components/LoginForm.tsx
 import React, { useState, FormEvent } from 'react';
 import API from '../../utils/API';
 
