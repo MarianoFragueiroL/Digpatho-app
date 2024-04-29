@@ -9,8 +9,9 @@ const loginAuth = <P extends object>(WrappedComponent: NextPage<P>): NextPage<P>
 
     useEffect(() => {
         async function checkAuth() {
-          const token = localStorage.getItem('token'); // Este método solo funciona en el cliente
-          const isValidToken = token ? await verifyToken(token) : false;
+          const token = localStorage.getItem('token');
+          
+          const isValidToken = token ? await verifyToken(token) : false;          
           if (!isValidToken) {
             router.replace('/auth/login');
           }

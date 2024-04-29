@@ -8,4 +8,4 @@ const Home = () => {
     );
   };
   
-  export default loginAuth(Home);
+  export default Home;
