@@ -1,5 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import API from '../../utils/API';
+import styles from '../../pages/auth/login/Login.module.css';
 
 interface LoginProps {
   onLoginSuccess: () => void;
@@ -27,16 +28,16 @@ const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
 
   return (
     <form onSubmit={handleLogin}>
-      <div>
-        <label>Username:</label>
-        <input type="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+      <div className={styles.formDataContainer}>
+        <label className={styles.formLabel}>Username</label>
+        <input className={styles.formInput} type="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
       </div>
-      <div>
-        <label>Password:</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+      <div className={styles.formDataContainer}>
+        <label className={styles.formLabel}>Password</label>
+        <input className={styles.formInput} type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
       </div>
       {error && <div>{error}</div>}
-      <button type="submit" disabled={loading}>Login</button>
+      <button className={styles.buttonLogin} type="submit" disabled={loading}>Login</button>
     </form>
   );
 };

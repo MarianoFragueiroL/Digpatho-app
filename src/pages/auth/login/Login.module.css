@@ -2,7 +2,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 15%;
 }
 .loginLogo{
     width: 400px;
+}
+.formDataContainer{
+    display: flex;
+    flex-direction: column;
+}
+.formLabel{
+    color: #952b5d;
+}
+.formInput{
+    border: none;
+}
+.buttonLogin{
+    background-color: #a92366;
+    padding: 0.5rem 1rem;
+    border-radius: 20px; 
+    border: none;
+    color: #cca1ce;
 }
