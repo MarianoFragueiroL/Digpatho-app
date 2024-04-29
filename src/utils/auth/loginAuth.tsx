@@ -1,10 +1,9 @@
-// components/withAuth.tsx
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { NextPage } from 'next';
 import {verifyToken} from './auth'
 
-const withAuth = <P extends object>(WrappedComponent: NextPage<P>): NextPage<P> => {
+const loginAuth = <P extends object>(WrappedComponent: NextPage<P>): NextPage<P> => {
   return (props: P) => {
     const router = useRouter();
 
@@ -24,5 +23,5 @@ const withAuth = <P extends object>(WrappedComponent: NextPage<P>): NextPage<P> 
   };
 };
 
-export default withAuth;
+export default loginAuth;
 

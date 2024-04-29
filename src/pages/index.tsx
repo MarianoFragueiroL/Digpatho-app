@@ -1,4 +1,4 @@
-import withAuth from "@/utils/auth/withAuth";
+import loginAuth from "@/utils/auth/loginAuth";
 
 const Home = () => {
     return (
@@ -8,4 +8,4 @@ const Home = () => {
     );
   };
   
-  export default withAuth(Home);
+  export default loginAuth(Home);
