@@ -5,7 +5,7 @@ import { useLoader } from '../../context/LoaderContext';
 
 type ImageFile = {
     file: File | null;
-    id: string; // Cambiado de número a string para propósitos de ejemplo
+    id: string;
   };
 
 
@@ -41,7 +41,8 @@ const Ki67Form: React.FC<UpdateFileProps> = ({onUpdateFile}) => {
     // Minimun 1 image upload
     if (images.some(image => image !== null)) {
       const formData = new FormData();
-      for (const image of images) {
+      for (let index = 0; index < images.length; index++) {
+        const image = images[index];
         if (image.file) formData.append('image_upload', image.file);;
           event.preventDefault();
           setLoading(true);
@@ -49,7 +50,7 @@ const Ki67Form: React.FC<UpdateFileProps> = ({onUpdateFile}) => {
             const response = await API.post('/api/processki67',  formData, {
               headers: { 'Content-Type': 'multipart/form-data' }
             });
-            onUpdateFile(response.data);
+            onUpdateFile(response.data, index);
           } catch (err) {
             console.log('error', err);
           } finally {
