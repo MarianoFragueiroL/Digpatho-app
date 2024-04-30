@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import Ki67Form from '../../components/ki67/ki67Form';
-import { useRouter } from 'next/router';
 import loginAuth from '@/utils/auth/loginAuth';
 import {ImageData} from '../../types/updateki67file/interfaces'
 
@@ -11,8 +10,6 @@ const Ki67Page: React.FC = () => {
   const [imageData, setImageData] = useState<ImageData | null>(null);
 
   const handleUpdatedImage = ( data:ImageData) => {
-    console.log('image updated');
-    console.log(data.original_image);
     setImageData(data);
   };
 

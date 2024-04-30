@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import API from '../../utils/API';
 import {UpdateFileProps} from '../../types/updateki67file/interfaces'
+import { useLoader } from '../../context/LoaderContext';
 
 type ImageFile = {
     file: File | null;
@@ -11,6 +12,7 @@ type ImageFile = {
 
 const Ki67Form: React.FC<UpdateFileProps> = ({onUpdateFile}) => {
   const [images, setImages] = useState<ImageFile[]>([]);
+  const { setLoading } = useLoader();
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
     if (event.target.files) {
@@ -41,21 +43,19 @@ const Ki67Form: React.FC<UpdateFileProps> = ({onUpdateFile}) => {
       const formData = new FormData();
       for (const image of images) {
         if (image.file) formData.append('image_upload', image.file);;
-        // Aquí iría la llamada a la API para enviar las imágenes
-        // Por ejemplo: await axios.post('tu-api-url', formData);
           event.preventDefault();
+          setLoading(true);
           try {
-              const response = await API.post('/api/processki67',  formData, {
-                  headers: { 'Content-Type': 'multipart/form-data' }
-                });
-              console.log(`Respuesta para la imagen ${image.id}:`, response.data);
-              onUpdateFile(response.data);
+            const response = await API.post('/api/processki67',  formData, {
+              headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            onUpdateFile(response.data);
           } catch (err) {
-              console.log('error', err);
+            console.log('error', err);
           } finally {
-              console.log('finally');
+            console.log('finally');
+            setLoading(false);
           }
-        console.log('Formulario enviado');
       };
     }
   };
