@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import API from '../../utils/API';
+import {UpdateFileProps} from '../../types/updateki67file/interfaces'
 
 type ImageFile = {
     file: File | null;
     id: string; // Cambiado de número a string para propósitos de ejemplo
   };
 
-const Ki67Form: React.FC = () => {
+
+
+const Ki67Form: React.FC<UpdateFileProps> = ({onUpdateFile}) => {
   const [images, setImages] = useState<ImageFile[]>([]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -46,6 +49,7 @@ const Ki67Form: React.FC = () => {
                   headers: { 'Content-Type': 'multipart/form-data' }
                 });
               console.log(`Respuesta para la imagen ${image.id}:`, response.data);
+              onUpdateFile(response.data);
           } catch (err) {
               console.log('error', err);
           } finally {
