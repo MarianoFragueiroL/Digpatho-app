@@ -30,11 +30,11 @@ const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
     <form onSubmit={handleLogin}>
       <div className={styles.formDataContainer}>
         <label className={styles.formLabel}>Username</label>
-        <input className={styles.formInput} type="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+        <input className={styles.formInput} type="username" value={username} placeholder='User Name' onChange={(e) => setUsername(e.target.value)} required />
       </div>
       <div className={styles.formDataContainer}>
         <label className={styles.formLabel}>Password</label>
-        <input className={styles.formInput} type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <input className={styles.formInput} type="password" value={password} placeholder='password' onChange={(e) => setPassword(e.target.value)} required />
       </div>
       {error && <div>{error}</div>}
       <button className={styles.buttonLogin} type="submit" disabled={loading}>Login</button>
