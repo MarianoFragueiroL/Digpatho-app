@@ -1,20 +1,21 @@
 import React, { useState, FormEvent } from 'react';
 import API from '../../utils/API';
 import styles from '../../pages/auth/login/Login.module.css';
+import {LoginProps} from '../../types/login/interfaces'
+import { useLoader } from '../../context/LoaderContext';
 
-interface LoginProps {
-  onLoginSuccess: () => void;
-}
 
 const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
+  const [sendingCredentials, setSendingCredentials] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const { setLoading } = useLoader();
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setSendingCredentials(true);
     try {
       const response = await API.post('/api/token', { username, password });
       localStorage.setItem('token', response.data.access);
@@ -37,7 +38,7 @@ const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         <input className={styles.formInput} type="password" value={password} placeholder='password' onChange={(e) => setPassword(e.target.value)} required />
       </div>
       {error && <div>{error}</div>}
-      <button className={styles.buttonLogin} type="submit" disabled={loading}>Login</button>
+      <button className={styles.buttonLogin} type="submit" disabled={sendingCredentials}>Login</button>
     </form>
   );
 };
