@@ -1,0 +1,14 @@
+.c_title{
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+
+}
+
+.title_left{
+    flex: 3;
+}
+.title_right{
+    position: relative;
+    flex: 2;
+}

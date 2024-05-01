@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Ki67Form from '../../components/ki67/ki67Form';
 import loginAuth from '@/utils/auth/loginAuth';
 import {ImageData} from '../../types/updateki67file/interfaces'
-
+import styles from './uploadki67.module.css'
 
 
 const Ki67Page: React.FC = () => {
@@ -23,8 +23,11 @@ const Ki67Page: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Upload KI-67 Image</h1>
+    <div className={styles.form_container}>
+      <div className={styles.title}>
+        <h1>Upload KI-67 Image</h1>
+
+      </div>
       <Ki67Form  onUpdateFile= {handleUpdatedImage} />
       {imagesData.length > 0 && (
       imagesData.map((image, index) => (
