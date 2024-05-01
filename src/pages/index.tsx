@@ -5,21 +5,14 @@ const Home = () => {
 
     return (
       <>
-        <div className={styles.c_title}>
-          <div className={styles.title_left}>
-            <div >
-              <h1>Detección temprana de cancer con IA</h1>
-            </div>
-            <div >
-              <h1>Nuestra tecnología permite que la detección del cancer sea más rápida y precisa. El futuro de la patología es ahora. Es con DigPatho. </h1>
-            </div>
-          </div>
-          <div className={styles.title_right}>
-            <div className="title-c-image">
-              <img src="/images/fondo.jpg" alt="IMG"/>
-            </div>
-          </div>
+      <div className={styles.hero_section}>
+          <img src="images/fondo.jpg" alt="Laboratorio" className={styles.hero_image}/>
+        <div className={styles.hero_text}>
+          <h1>Detección temprana de cáncer con IA</h1>
+          <p>Nuestra tecnología permite que la detección del cáncer sea más rápida y precisa. El futuro de la patología es ahora. Es con DigPatho.</p>
+          <button className={styles.hero_button}>Conoce</button>
         </div>
+      </div>
       </>
     );
   };
