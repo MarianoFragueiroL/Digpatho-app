@@ -31,12 +31,21 @@ const Ki67Page: React.FC = () => {
       <Ki67Form  onUpdateFile= {handleUpdatedImage} />
       {imagesData.length > 0 && (
       imagesData.map((image, index) => (
-        <div key={index}>
-          <img src={`data:image/jpeg;base64,${image.original_image}`} alt="Original" />
-          <img src={`data:image/jpeg;base64,${image.converted_image}`} alt="Processed" />
-          <p>Ki67 Index: {image.ki67}</p>
-          <p>Positive Cells: {image.positive}</p>
-          <p>Total Cells: {image.total}</p>
+        <div className='container ' key={index}>
+          <div>
+            <p>Ki67 Index: {image.ki67}</p>
+            <p>Positive Cells: {image.positive}</p>
+            <p>Total Cells: {image.total}</p>
+          </div>
+          <div className='d-flex'>
+            <div className='col-6 m-3'>
+              <img className='w-100' src={`data:image/jpeg;base64,${image.original_image}`} alt="Original" />
+
+            </div>
+            <div className='col-6 m-3'>
+              <img className='w-100' src={`data:image/jpeg;base64,${image.converted_image}`} alt="Processed" />
+            </div>
+          </div>
         </div>
       ))
     )}

@@ -76,7 +76,7 @@ const Ki67Form: React.FC<UpdateFileProps> = ({onUpdateFile}) => {
               <label  className="form-label">Select the image</label>
             </div>
               <div className="d-flex">
-                <div className='col-6'>
+                <div className='col-4'>
                 </div>
                 <div className="col-3 d-flex align-items-center m-3">
                   <input className='form-control btn btn-outline-secondary' type="file" onChange={(e) => handleImageChange(e, index)} />
