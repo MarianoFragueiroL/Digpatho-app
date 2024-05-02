@@ -5,10 +5,11 @@ export interface ImageData {
     ki67: number;
     positive: number;
     total: number;
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
+    index?: number;
   }
   
 export interface UpdateFileProps {
-    onUpdateFile: (data: ImageData) => void;
+    onUpdateFile: (data: ImageData, index: number) => void;
 }

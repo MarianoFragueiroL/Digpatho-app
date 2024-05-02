@@ -1,0 +1,50 @@
+.c_title{
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+
+}
+
+.title_left{
+    flex: 3;
+}
+.title_right{
+    position: relative;
+    flex: 2;
+}
+
+.hero_section {
+    position: relative;
+    width: 100%; /* Ajustar al ancho de la pantalla o contenedor */
+    height: auto; /* Ajustar basado en el contenido */
+    overflow: hidden; /* Asegura que nada se desborde */
+  }
+  
+  .hero_image {
+    width: 100%; /* Asegurar que la imagen cubra todo el ancho */
+    height: auto; /* Mantener la proporción */
+    display: block; /* Elimina cualquier espacio extra debajo de la imagen */
+  }
+  
+  .hero_text {
+    position: absolute; /* Posicionamiento absoluto respecto a su contenedor relativo */
+    top: 20%; /* Distancia desde la parte superior del contenedor */
+    left: 50%; /* Centrar horizontalmente */
+    transform: translate(-50%, -20%); /* Ajusta la posición exacta del texto */
+    color: white; /* Texto en color blanco para mejor visibilidad */
+    text-align: center; /* Alineación del texto */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para mejorar la legibilidad */
+    padding: 20px; /* Espaciado interno */
+    width: 80%; /* Ancho del contenedor de texto */
+    border-radius: 10px; /* Bordes redondeados */
+  }
+  
+.hero_button {
+    padding: 10px 20px; /* Espaciado interno del botón */
+    background-color: #007BFF; /* Color de fondo */
+    border: none; /* Sin bordes */
+    color: white; /* Texto en blanco */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor como puntero */
+    margin-top: 20px; /* Margen superior */
+  }

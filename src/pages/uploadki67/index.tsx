@@ -1,34 +1,54 @@
 
 import React, { useState } from 'react';
 import Ki67Form from '../../components/ki67/ki67Form';
-import { useRouter } from 'next/router';
 import loginAuth from '@/utils/auth/loginAuth';
 import {ImageData} from '../../types/updateki67file/interfaces'
-
+import styles from './uploadki67.module.css'
 
 
 const Ki67Page: React.FC = () => {
-  const [imageData, setImageData] = useState<ImageData | null>(null);
+  const [imagesData, setImagesData] = useState<ImageData[]>([]);
 
-  const handleUpdatedImage = ( data:ImageData) => {
-    console.log('image updated');
-    console.log(data.original_image);
-    setImageData(data);
+  const handleUpdatedImage = ( data:ImageData, index: number) => {
+    const newImageInfo: ImageData = {
+      name: data.name,
+      original_image: data.original_image,
+      converted_image: data.converted_image,
+      ki67: data.ki67,
+      positive: data.positive,
+      total: data.total,
+      index: index
+    };
+    setImagesData(prevImages => [...prevImages, newImageInfo]);
   };
 
   return (
-    <div>
-      <h1>Upload KI-67 Image</h1>
+    <div className={styles.form_container}>
+      <div className={styles.title}>
+        <h1>Upload KI-67 Image</h1>
+
+      </div>
       <Ki67Form  onUpdateFile= {handleUpdatedImage} />
-      {imageData && (
-        <div>
-          <img src={`data:image/jpeg;base64,${imageData.original_image}`} alt="Original" />
-          <img src={`data:image/jpeg;base64,${imageData.converted_image}`} alt="Processed" />
-          <p>Ki67 Index: {imageData.ki67}</p>
-          <p>Positive Cells: {imageData.positive}</p>
-          <p>Total Cells: {imageData.total}</p>
+      {imagesData.length > 0 && (
+      imagesData.map((image, index) => (
+        <div className='container ' key={index}>
+          <div>
+            <p>Ki67 Index: {image.ki67}</p>
+            <p>Positive Cells: {image.positive}</p>
+            <p>Total Cells: {image.total}</p>
+          </div>
+          <div className='d-flex'>
+            <div className='col-6 m-3'>
+              <img className='w-100' src={`data:image/jpeg;base64,${image.original_image}`} alt="Original" />
+
+            </div>
+            <div className='col-6 m-3'>
+              <img className='w-100' src={`data:image/jpeg;base64,${image.converted_image}`} alt="Processed" />
+            </div>
+          </div>
         </div>
-      )}
+      ))
+    )}
     </div>
   );
 };

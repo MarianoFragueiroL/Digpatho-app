@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import '../styles/global.css'
 import styles from './Navbar.module.css';
-import Image from 'next/image';
 import { useAppContext } from '../context/AppContext';
 
 const Navbar: React.FC = () => {

@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import API from '../../utils/API';
 import {UpdateFileProps} from '../../types/updateki67file/interfaces'
+import { useLoader } from '../../context/LoaderContext';
 
 type ImageFile = {
     file: File | null;
-    id: string; // Cambiado de número a string para propósitos de ejemplo
+    id: string;
   };
 
 
 
 const Ki67Form: React.FC<UpdateFileProps> = ({onUpdateFile}) => {
-  const [images, setImages] = useState<ImageFile[]>([]);
+  const [images, setImages] = useState<ImageFile[]>([{ file: null, id: `image-0-${new Date().getTime()}` }]);
+  const { setLoading } = useLoader();
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
     if (event.target.files) {
@@ -39,41 +41,57 @@ const Ki67Form: React.FC<UpdateFileProps> = ({onUpdateFile}) => {
     // Minimun 1 image upload
     if (images.some(image => image !== null)) {
       const formData = new FormData();
-      for (const image of images) {
+      for (let index = 0; index < images.length; index++) {
+        const image = images[index];
         if (image.file) formData.append('image_upload', image.file);;
-        // Aquí iría la llamada a la API para enviar las imágenes
-        // Por ejemplo: await axios.post('tu-api-url', formData);
           event.preventDefault();
+          setLoading(true);
           try {
-              const response = await API.post('/api/processki67',  formData, {
-                  headers: { 'Content-Type': 'multipart/form-data' }
-                });
-              console.log(`Respuesta para la imagen ${image.id}:`, response.data);
-              onUpdateFile(response.data);
+            const response = await API.post('/api/processki67',  formData, {
+              headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            onUpdateFile(response.data, index);
           } catch (err) {
-              console.log('error', err);
+            console.log('error', err);
           } finally {
-              console.log('finally');
+            console.log('finally');
+            setLoading(false);
           }
-        console.log('Formulario enviado');
       };
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-        {images.length < 10 && (
-            <button type="button" onClick={handleAddImage}>+</button>
-        )}
-      {images.map((image, index) => (
-          <div key={image.id}>
-          <input type="file" onChange={(e) => handleImageChange(e, index)} 
-          />
-            <button type="button" onClick={()=>deleteImage(index)}>-</button>
+    <div className='container'>
+      <form className='m-5' onSubmit={handleSubmit}>
+          {images.length < 10 && (
+            <div className='d-flex align-items-center m-3'>
+              <label  className="form-label ">Add another Image</label>
+              <button className='btn btn-secondary m-4' type="button" onClick={handleAddImage}>+</button>
+            </div>
+          )}
+        {images.map((image, index) => (
+          <div key={image.id} className='d-flex flex-column m-3'>
+            <div className='col-6'>
+              <label  className="form-label">Select the image</label>
+            </div>
+              <div className="d-flex">
+                <div className='col-4'>
+                </div>
+                <div className="col-3 d-flex align-items-center m-3">
+                  <input className='form-control btn btn-outline-secondary' type="file" onChange={(e) => handleImageChange(e, index)} />
+                </div>
+                <div className='col-2 d-flex align-items-center'>
+                  <button className='btn btn-danger m-3' type="button" onClick={()=>deleteImage(index)}><img className='color-white' src='/icons/lnr-trash.svg'/></button>
+                </div>
+              </div>
+          </div>
+        ))}
+        <div className=' d-flex align-items-center justify-content-end'>
+          <button className='btn btn-success' type="submit" disabled={images.every(image => image === null)}> Send </button>
         </div>
-      ))}
-      <button type="submit" disabled={images.every(image => image === null)}>Enviar</button>
-    </form>
+      </form>
+    </div>
   );
 }
 
