@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
           </Link></li>
         <li ><Link className={styles.navbarLink} href="/uploadki67">Upload KI 67 Image</Link></li>
       </ul>
-      <Link href="/login" className={styles.buttonDemo}>Login</Link>
+      <Link href="/auth/login" className={styles.buttonDemo}>Login</Link>
     </div>
   </nav>
 )};
