@@ -2,6 +2,7 @@ import Link from 'next/link';
 import '../styles/global.css'
 import styles from './Navbar.module.css';
 import { useAppContext } from '../context/AppContext';
+import { allUrl } from '@/types/urlsvariables';
 
 const Navbar: React.FC = () => {
   const { isLogin } = useAppContext();
@@ -18,9 +19,11 @@ const Navbar: React.FC = () => {
         <li ><Link className={styles.navbarLink} href="/">
           Inicio
           </Link></li>
-        <li ><Link className={styles.navbarLink} href="/uploadki67">Upload KI 67 Image</Link></li>
+        <li ><Link className={styles.navbarLink} href={allUrl.uploadki67}>Upload KI 67 Image</Link></li>
       </ul>
-      <Link href="/auth/login" className={styles.buttonDemo}>Login</Link>
+      { !isLogin &&(
+        <Link href= {allUrl.loginUrl} className={styles.buttonDemo}>Login</Link>
+      )}
     </div>
   </nav>
 )};
