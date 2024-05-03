@@ -8,6 +8,7 @@
     width: 400px;
 }
 .formDataContainer{
+    position: relative;
     display: flex;
     flex-direction: column;
 }
@@ -16,6 +17,8 @@
 }
 .formInput{
     border: none;
+    width: 100%;
+    padding-right: 40px; /* Asegúrate de que el texto no se sobreponga al botón */
 }
 .buttonLogin{
     background-color: #a92366;
@@ -24,3 +27,11 @@
     border: none;
     color: #cca1ce;
 }
+.togglePasswordButton {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+} 
