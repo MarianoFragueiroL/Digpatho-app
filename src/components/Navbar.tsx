@@ -19,11 +19,12 @@ const Navbar: React.FC = () => {
     <div className={styles.navbarLinksContainer}>
       <ul className={styles.navbarLinks}>
         <li ><Link className={styles.navbarLink} href="/">
-          Inicio
-          </Link></li>
+              Inicio
+            </Link>
+        </li>
           { isLogged && isAllowed &&(
             <li ><Link className={styles.navbarLink} href={allUrl.uploadki67}>Upload KI 67 Image</Link></li>
-            )}
+          )}
       </ul>
         { !isLogged &&(
           <Link href= {allUrl.loginUrl} className={styles.buttonDemo}>Login</Link>
