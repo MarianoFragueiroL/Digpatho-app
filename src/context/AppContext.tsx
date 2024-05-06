@@ -4,9 +4,9 @@ import React, { createContext, useContext, useState } from 'react';
 
 
 // Hook personalizado para el contexto
-export const inLogginContext = () => useContext(AppContext);
-export const isAllowedContext = () => useContext(AppAllowedContext);
-export const isLoggedContext = () => useContext(AppIsLoggedContext);
+export const useLoginContext = () => useContext(AppContext);
+export const useAllowedContext = () => useContext(AppAllowedContext);
+export const useLoggedContext = () => useContext(AppuseLoggedContext);
 
 
 const defaultContextValue: AppContextInterface = {
@@ -46,14 +46,13 @@ export const IsLoggedProvider: React.FC<AppLoggedProviderProps> = ({ children })
   const [isLogged, setIsLogged] = useState<boolean>(false);
 
     return (
-        <AppIsLoggedContext.Provider value={{ isLogged, setIsLogged }}>
+        <AppuseLoggedContext.Provider value={{ isLogged, setIsLogged }}>
           {children}
-        </AppIsLoggedContext.Provider>
+        </AppuseLoggedContext.Provider>
   );
 };
 
 const AppContext = createContext<AppContextInterface>(defaultContextValue);
 const AppAllowedContext = createContext<AppAllowedContextInterface>(defaultAllowedContextValue);
-const AppIsLoggedContext = createContext<AppLoggedContextInterface>(defaultLoggedContextValue);
-
+const AppuseLoggedContext = createContext<AppLoggedContextInterface>(defaultLoggedContextValue);
 

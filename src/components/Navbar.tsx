@@ -2,13 +2,13 @@ import Link from 'next/link';
 import '../styles/global.css'
 import styles from './Navbar.module.css';
 import { useEffect, useState } from 'react';
-import { inLogginContext, isAllowedContext, isLoggedContext } from '../context/AppContext';
+import { useLoginContext, useAllowedContext, useLoggedContext } from '../context/AppContext';
 import { allUrl } from '@/types/urlsvariables';
 
 const Navbar: React.FC = () => {
-  const { isLogin } = inLogginContext();
-  const { isAllowed } = isAllowedContext();
-  const { isLogged } = isLoggedContext();
+  const { isLogin } = useLoginContext();
+  const { isAllowed } = useAllowedContext();
+  const { isLogged } = useLoggedContext();
 
   
   useEffect(() => {   

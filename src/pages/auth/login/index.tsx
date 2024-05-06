@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 import LoginForm from '../../../components/Login/LoginForm';
 import { useRouter } from 'next/router';
 import styles from './Login.module.css';
-import { inLogginContext, isLoggedContext } from '../../../context/AppContext';
+import { useLoginContext, useLoggedContext } from '../../../context/AppContext';
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
-  const { setIsLogin } = inLogginContext();
-  const { isLogged, setIsLogged } = isLoggedContext();
+  const { setIsLogin } = useLoginContext();
+  const { isLogged, setIsLogged } = useLoggedContext();
 
   const handleLoginSuccess = () => {
     setIsLogged(true);
@@ -16,11 +16,6 @@ const LoginPage: React.FC = () => {
     router.push('/');
   };
   
-  useEffect( () => {
-      setIsLogin(false);
-      localStorage.removeItem("token");
-    }
-    , [ ]);
     useEffect(() => {    
       setIsLogin(true);
       localStorage.removeItem("token");

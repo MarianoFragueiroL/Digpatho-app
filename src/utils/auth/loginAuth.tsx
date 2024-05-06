@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { NextPage } from 'next';
 import { verifyToken } from './auth'
-import { isLoggedContext, isAllowedContext } from '@/context/AppContext';
+import { useLoggedContext, useAllowedContext } from '@/context/AppContext';
 import { useLoader } from '@/context/LoaderContext';
 
 const loginAuth = <P extends object>(WrappedComponent: NextPage<P>): NextPage<P> => {
@@ -10,8 +10,8 @@ const loginAuth = <P extends object>(WrappedComponent: NextPage<P>): NextPage<P>
   const AuthComponent = (props: P) => {
     const router = useRouter();
     const { setLoading } = useLoader();
-    const { setIsLogged } = isLoggedContext();
-    const { setIsAllowed } = isAllowedContext();
+    const { setIsLogged } = useLoggedContext();
+    const { setIsAllowed } = useAllowedContext();
 
     useEffect(() => {
       async function checkAuth() {
@@ -29,7 +29,7 @@ const loginAuth = <P extends object>(WrappedComponent: NextPage<P>): NextPage<P>
       }
   
       checkAuth();
-  }, [router, setIsLogged, setIsAllowed]);
+  }, [router, setIsLogged, setIsAllowed, setLoading]);
 
     return <WrappedComponent {...props} />;
   };

@@ -10,16 +10,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <IsAllowedProvider>
-        <LoaderProvider>
-          <AppProvider>
+      <AppProvider>
+        <IsAllowedProvider>
           <IsLoggedProvider>
-            <Navbar />
-            <Component {...pageProps} />
+            <LoaderProvider>
+              <Navbar />
+              <Component {...pageProps} />
+            </LoaderProvider>
           </IsLoggedProvider>
-          </AppProvider>
-        </LoaderProvider>
-      </IsAllowedProvider>
+        </IsAllowedProvider>
+      </AppProvider>
     </>
   );
 }
