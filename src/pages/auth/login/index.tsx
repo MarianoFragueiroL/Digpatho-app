@@ -15,13 +15,20 @@ const LoginPage: React.FC = () => {
     localStorage.setItem("isLogged", "true");
     router.push('/');
   };
-  useEffect(() => {
-    // Cuando el componente se monta, establecer isLogin en true
-    
-    setIsLogin(true);
-    // Cuando el componente se desmonta, establecer isLogin en false
-    return () => setIsLogin(false);
-  }, [setIsLogin]);
+  
+  useEffect( () => {
+      setIsLogin(false);
+      localStorage.removeItem("token");
+    }
+    , [ ]);
+    useEffect(() => {    
+      setIsLogin(true);
+      localStorage.removeItem("token");
+    return () => {
+      setIsLogin(false);
+    };
+  }, [ setIsLogin]);
+
   return (
     <div className={styles.logincontainer}>
       <div className=''>

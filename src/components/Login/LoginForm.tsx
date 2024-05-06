@@ -19,9 +19,9 @@ const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setSendingCredentials(true);
     try {
+      setLoading(true);
       const response = await API.post('/api/token', { username, password });
       localStorage.setItem('token', response.data.access);
       onLoginSuccess();

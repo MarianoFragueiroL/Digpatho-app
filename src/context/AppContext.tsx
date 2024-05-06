@@ -43,18 +43,8 @@ export const IsAllowedProvider: React.FC<AppAllowedProviderProps> = ({ children 
 };
 
 export const IsLoggedProvider: React.FC<AppLoggedProviderProps> = ({ children }) => {
-  const [isLogged, setIsLogged] = useState<boolean>(() => {
-    try{
-      const storedIsLogged = localStorage.getItem('isLogged');
-      return storedIsLogged === "true";
-    }
-    catch{
-      return false
-    }
-  });
-    console.log('in is logged context', isLogged);
-    
-    
+  const [isLogged, setIsLogged] = useState<boolean>(false);
+
     return (
         <AppIsLoggedContext.Provider value={{ isLogged, setIsLogged }}>
           {children}
@@ -62,7 +52,6 @@ export const IsLoggedProvider: React.FC<AppLoggedProviderProps> = ({ children })
   );
 };
 
-// Crear el contexto con un valor predeterminado
 const AppContext = createContext<AppContextInterface>(defaultContextValue);
 const AppAllowedContext = createContext<AppAllowedContextInterface>(defaultAllowedContextValue);
 const AppIsLoggedContext = createContext<AppLoggedContextInterface>(defaultLoggedContextValue);

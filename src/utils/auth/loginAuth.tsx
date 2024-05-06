@@ -1,31 +1,35 @@
 import { useRouter } from 'next/router';
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import { NextPage } from 'next';
 import { verifyToken } from './auth'
 import { isLoggedContext, isAllowedContext } from '@/context/AppContext';
-
+import { useLoader } from '@/context/LoaderContext';
 
 const loginAuth = <P extends object>(WrappedComponent: NextPage<P>): NextPage<P> => {
   
   const AuthComponent = (props: P) => {
     const router = useRouter();
+    const { setLoading } = useLoader();
     const { setIsLogged } = isLoggedContext();
     const { setIsAllowed } = isAllowedContext();
 
     useEffect(() => {
-        async function checkAuth() {
-          const token = localStorage.getItem('token');
-          const isValidToken = token ? await verifyToken(token) : false;
-          if (!isValidToken) {
-            setIsLogged(false);
-            setIsAllowed(false);
-            localStorage.setItem("isLogged", "false");
-            router.replace('/auth/login');
-          }
+      async function checkAuth() {
+        const token = localStorage.getItem('token');
+        const isLoggedBefore = localStorage.getItem('isLogged');
+        const isValidToken = token ? await verifyToken(token) : false;
+        setIsLogged(isValidToken);
+        localStorage.setItem("isLogged", isValidToken ? "true" : "false");
+        if (!isValidToken && isLoggedBefore) {
+          // setIsAllowed(false);
+          setLoading(false);
+          router.replace('/auth/login');
         }
+        setLoading(false);
+      }
   
-        checkAuth();
-    }, [router]);
+      checkAuth();
+  }, [router, setIsLogged, setIsAllowed]);
 
     return <WrappedComponent {...props} />;
   };
