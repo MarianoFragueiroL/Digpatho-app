@@ -13,7 +13,6 @@ const LoginPage: React.FC = () => {
   const handleLoginSuccess = () => {
     setIsLogged(true);
     localStorage.setItem("isLogged", "true");
-    
     router.push('/');
   };
   useEffect(() => {
