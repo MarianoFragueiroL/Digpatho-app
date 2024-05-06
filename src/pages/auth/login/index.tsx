@@ -3,19 +3,21 @@ import React, { useEffect } from 'react';
 import LoginForm from '../../../components/Login/LoginForm';
 import { useRouter } from 'next/router';
 import styles from './Login.module.css';
-import { useAppContext } from '../../../context/AppContext';
+import { inLogginContext, isLoggedContext, isAllowedContext } from '../../../context/AppContext';
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
-  const { setIsLogin } = useAppContext();
+  const { setIsLogin } = inLogginContext();
+  const { setIsLogged } = isLoggedContext();
 
   const handleLoginSuccess = () => {
+    setIsLogged(true)
     router.push('/');
   };
   useEffect(() => {
     // Cuando el componente se monta, establecer isLogin en true
-    setIsLogin(true);
     
+    setIsLogin(true);
     // Cuando el componente se desmonta, establecer isLogin en false
     return () => setIsLogin(false);
   }, [setIsLogin]);

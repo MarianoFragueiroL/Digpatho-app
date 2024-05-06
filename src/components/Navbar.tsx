@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import '../styles/global.css'
 import styles from './Navbar.module.css';
-import { useAppContext } from '../context/AppContext';
+import { inLogginContext, isAllowedContext, isLoggedContext } from '../context/AppContext';
 import { allUrl } from '@/types/urlsvariables';
 
 const Navbar: React.FC = () => {
-  const { isLogin } = useAppContext();
-
+  const { isLogin } = inLogginContext();
+  const { isAllowed } = isAllowedContext();
+  const { isLogged } = isLoggedContext();
+  
   // No renderizar el Navbar si isLogin es true
   if (isLogin) return null;
   return (
@@ -19,11 +21,13 @@ const Navbar: React.FC = () => {
         <li ><Link className={styles.navbarLink} href="/">
           Inicio
           </Link></li>
-        <li ><Link className={styles.navbarLink} href={allUrl.uploadki67}>Upload KI 67 Image</Link></li>
+          { isAllowed &&(
+            <li ><Link className={styles.navbarLink} href={allUrl.uploadki67}>Upload KI 67 Image</Link></li>
+            )}
       </ul>
-      { !isLogin &&(
-        <Link href= {allUrl.loginUrl} className={styles.buttonDemo}>Login</Link>
-      )}
+        { isLogged &&(
+          <Link href= {allUrl.loginUrl} className={styles.buttonDemo}>Login</Link>
+        )}
     </div>
   </nav>
 )};

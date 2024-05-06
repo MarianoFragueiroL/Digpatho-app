@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import Ki67Form from '../../components/ki67/ki67Form';
+import Ki67Form from '../../../components/ki67/ki67Form';
 import loginAuth from '@/utils/auth/loginAuth';
-import {ImageData} from '../../types/updateki67file/interfaces'
+import {ImageData} from '../../../types/updateki67file/interfaces'
 import styles from './uploadki67.module.css'
 
 

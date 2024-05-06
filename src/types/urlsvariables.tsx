@@ -1,4 +1,4 @@
 export const allUrl ={
     loginUrl : '/auth/login',
-    uploadki67 : '/uploadki67'
+    uploadki67 : '/ki67/uploadki67'
 }
