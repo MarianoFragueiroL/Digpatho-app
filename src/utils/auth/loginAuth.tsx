@@ -19,6 +19,7 @@ const loginAuth = <P extends object>(WrappedComponent: NextPage<P>): NextPage<P>
           if (!isValidToken) {
             setIsLogged(false);
             setIsAllowed(false);
+            localStorage.setItem("isLogged", "false");
             router.replace('/auth/login');
           }
         }
