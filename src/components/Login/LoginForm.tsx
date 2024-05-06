@@ -28,6 +28,7 @@ const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
     } catch (err) {
       setError('Failed to login');
     } finally {
+      setSendingCredentials(false)
       setLoading(false);
     }
   };
@@ -43,7 +44,6 @@ const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         <input className={styles.formInput} type={showPassword ? "text" : "password"} 
         value={password} placeholder='password' onChange={(e) => setPassword(e.target.value)} required />
         <button type="button" onClick={togglePasswordVisibility} className={styles.togglePasswordButton}>
-          {/* Icono de ojo - puedes usar un SVG, Font Awesome, o similar */}
           {showPassword ? <EyeClosedIcon /> : <EyeOpenIcon />}
         </button>
         

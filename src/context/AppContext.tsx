@@ -32,8 +32,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   );
 };
 
-export const isAllowedProvider: React.FC<AppAllowedProviderProps> = ({ children }) => {
-    const [isAllowed, setIsAllowed] = useState<boolean>(false);
+export const IsAllowedProvider: React.FC<AppAllowedProviderProps> = ({ children }) => {
+    const [isAllowed, setIsAllowed] = useState<boolean>(true);
     
     return (
         <AppAllowedContext.Provider value={{ isAllowed, setIsAllowed }}>
@@ -41,8 +41,19 @@ export const isAllowedProvider: React.FC<AppAllowedProviderProps> = ({ children 
         </AppAllowedContext.Provider>
   );
 };
-export const isLoggedProvider: React.FC<AppAllowedProviderProps> = ({ children }) => {
-    const [isLogged, setIsLogged] = useState<boolean>(false);
+
+export const IsLoggedProvider: React.FC<AppLoggedProviderProps> = ({ children }) => {
+  const [isLogged, setIsLogged] = useState<boolean>(() => {
+    try{
+      const storedIsLogged = localStorage.getItem('isLogged');
+      return storedIsLogged === "true";
+    }
+    catch{
+      return false
+    }
+  });
+    console.log('in is logged context', isLogged);
+    
     
     return (
         <AppIsLoggedContext.Provider value={{ isLogged, setIsLogged }}>

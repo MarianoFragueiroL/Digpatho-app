@@ -21,11 +21,11 @@ const Navbar: React.FC = () => {
         <li ><Link className={styles.navbarLink} href="/">
           Inicio
           </Link></li>
-          { isAllowed &&(
+          { isLogged && isAllowed &&(
             <li ><Link className={styles.navbarLink} href={allUrl.uploadki67}>Upload KI 67 Image</Link></li>
             )}
       </ul>
-        { isLogged &&(
+        { !isLogged &&(
           <Link href= {allUrl.loginUrl} className={styles.buttonDemo}>Login</Link>
         )}
     </div>
