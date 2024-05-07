@@ -5,6 +5,7 @@ import API from '../../../utils/API';
 import styles from './userdetails.module.css'
 import { EyeClosedIcon, EyeOpenIcon } from '@/components/eyeicon';
 import { useLoader } from '@/context/LoaderContext';
+import loginAuth from '@/utils/auth/loginAuth';
 
 
 
@@ -95,4 +96,4 @@ const UserDetails: React.FC<ProfileProps> = ({ userData }) => {
   );
 };
 
-export default UserDetails;
+export default loginAuth(  UserDetails);
