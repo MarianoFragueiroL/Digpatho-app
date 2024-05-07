@@ -1,0 +1,37 @@
+.logincontainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15%;
+}
+.loginLogo{
+    width: 400px;
+}
+.formDataContainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.formLabel{
+    color: #952b5d;
+}
+.formInput{
+    border: none;
+    width: 50%;
+    padding-right: 40px; /* Asegúrate de que el texto no se sobreponga al botón */
+}
+.buttonLogin{
+    background-color: #a92366;
+    padding: 0.5rem 1rem;
+    border-radius: 20px; 
+    border: none;
+    color: #cca1ce;
+}
+.togglePasswordButton {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+} 
