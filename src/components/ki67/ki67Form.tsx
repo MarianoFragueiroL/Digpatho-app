@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import API from '../../utils/API';
-import {UpdateFileProps} from '../../types/updateki67file/interfaces'
+import {UpdateFileProps} from '../../types/ki67/interfaces'
 import { useLoader } from '../../context/LoaderContext';
 
 type ImageFile = {
