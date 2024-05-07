@@ -1,9 +1,9 @@
 import React, { useState, FormEvent } from 'react';
-import API from '../../utils/API';
-import styles from '../../pages/auth/login/Login.module.css';
-import {LoginProps} from '../../types/login/interfaces'
-import { useLoader } from '../../context/LoaderContext';
-import {EyeClosedIcon, EyeOpenIcon} from '../eyeicon'
+import API from '../../../utils/API';
+import styles from '../../../pages/auth/login/Login.module.css';
+import {LoginProps} from '../../../types/login/interfaces'
+import { useLoader } from '../../../context/LoaderContext';
+import {EyeClosedIcon, EyeOpenIcon} from '../../eyeicon'
 
 const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState<string>('');

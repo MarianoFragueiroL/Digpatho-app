@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import LoginForm from '../../../components/Login/LoginForm';
+import LoginForm from '../../../components/auth/Login/LoginForm';
 import { useRouter } from 'next/router';
 import styles from './Login.module.css';
 import { useLoginContext, useLoggedContext } from '../../../context/AppContext';
