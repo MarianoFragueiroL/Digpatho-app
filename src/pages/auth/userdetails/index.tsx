@@ -19,7 +19,7 @@ const UserDetails: React.FC<ProfileProps> = ({ userData }) => {
       });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });    
   };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -27,9 +27,17 @@ const UserDetails: React.FC<ProfileProps> = ({ userData }) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try{
-        const response = await API.put('/api/users/me/',  JSON.stringify(user));
-        const data = await response;
+        setLoading(true);
+        const response = await API.put('/api/users/me/',  user);
+        setUser({
+            first_name: response.data?.first_name || '',
+            last_name: response.data?.last_name || '',
+            password: response.data?.password || '',
+            email: response.data?.email || ''
+        });
+        setLoading(false);
     } catch (err) {
+        setLoading(false);
     } 
   };
   const getUserData = async ()=>{
