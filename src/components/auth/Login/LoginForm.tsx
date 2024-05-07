@@ -4,6 +4,8 @@ import styles from '../../../pages/auth/login/Login.module.css';
 import {LoginProps} from '../../../types/login/interfaces'
 import { useLoader } from '../../../context/LoaderContext';
 import {EyeClosedIcon, EyeOpenIcon} from '../../eyeicon'
+import Cookie from 'js-cookie';
+
 
 const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState<string>('');
@@ -24,6 +26,7 @@ const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
       setLoading(true);
       const response = await API.post('/api/token', { username, password });
       localStorage.setItem('token', response.data.access);
+      Cookie.set('token', response.data.access, { expires: 1, secure: process.env.NODE_ENV === 'production' });
       onLoginSuccess();
     } catch (err) {
       setError('Failed to login');
