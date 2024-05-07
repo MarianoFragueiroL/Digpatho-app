@@ -27,3 +27,13 @@ export interface AppProviderProps {
 export interface AppLoggedProviderProps {
   children: ReactNode;
 }
+export interface UserData {
+  first_name: string;
+  last_name: string;
+  password: string;
+  email: string;
+}
+
+export interface ProfileProps {
+  userData: UserData;
+}

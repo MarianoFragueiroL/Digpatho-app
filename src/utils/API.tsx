@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-
+import cookie from 'cookie';
 
 
 const baseURL = process.env.NODE_ENV === 'production'
@@ -12,9 +12,20 @@ const axiosClient = axios.create({
   });
 
   axiosClient.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token'); 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    if (typeof window !== 'undefined') {
+      // Try to read the token from the cookies included in the headers of the incoming request
+      const cookies = cookie.parse(process.browser ? document.cookie : config.headers.cookie);
+      const token = cookies.token;
+      config.headers.Cookie = config.headers.cookie;
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } else {
+      // Client-side: safely use localStorage
+        const token = localStorage.getItem('token');
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
     return config;
   }, (error) => {

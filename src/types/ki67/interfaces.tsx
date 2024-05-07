@@ -13,3 +13,14 @@ export interface ImageData {
 export interface UpdateFileProps {
     onUpdateFile: (data: ImageData, index: number) => void;
 }
+
+export interface AnalysisImage {
+  url: string;
+  name: string;
+  analysis: string;
+  already_committed: boolean;
+}
+
+export interface AnalysisProps {
+  images: AnalysisImage[];
+}

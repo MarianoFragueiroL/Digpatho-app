@@ -16,12 +16,11 @@ const loginAuth = <P extends object>(WrappedComponent: NextPage<P>): NextPage<P>
     useEffect(() => {
       async function checkAuth() {
         const token = localStorage.getItem('token');
-        const isLoggedBefore = localStorage.getItem('isLogged');
+        setLoading(true);
         const isValidToken = token ? await verifyToken(token) : false;
         setIsLogged(isValidToken);
         localStorage.setItem("isLogged", isValidToken ? "true" : "false");
-        if (!isValidToken && isLoggedBefore) {
-          // setIsAllowed(false);
+        if (!isValidToken ) {
           setLoading(false);
           router.replace('/auth/login');
         }
