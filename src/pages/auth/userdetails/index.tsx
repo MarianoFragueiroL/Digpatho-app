@@ -20,7 +20,7 @@ const UserDetails: React.FC<ProfileProps> = ({ userData }) => {
       });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });    
+    setUser({ ...user, [e.target.name]: e.target.value });        
   };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -65,29 +65,31 @@ const UserDetails: React.FC<ProfileProps> = ({ userData }) => {
     {user &&(
         <div className='container'>
             <form className='m-3 p-3' onSubmit={handleSubmit}>
-                <div className={styles.formDataContainer}>
-                    <label className={styles.formLabel}>Name</label>
-                    <input type="text" name="first_name" value={user.first_name ? user.first_name : '' } onChange={handleChange} />
-                </div>
-                <div className={styles.formDataContainer}>
-                    <label className={styles.formLabel}>Surname</label>
-                    <input type="text" name="last_name" value={user.last_name ? user.last_name : ''} onChange={handleChange} />
-                </div>
-                <div className={styles.formDataContainer}>
-                    <label className={styles.formLabel}>Password</label>
-                    <input className={styles.formInput} type={showPassword ? "text" : "password"} 
-                        value={user.password} placeholder='password' onChange={handleChange}  />
-                        <button type="button" onClick={togglePasswordVisibility} className={styles.togglePasswordButton}>
-                        {showPassword ? <EyeClosedIcon /> : <EyeOpenIcon />}
-                        </button>
-                </div>
+                <div className='container'>
+                    <div className={styles.formDataContainer+' col-4'}>
+                        <label className={styles.formLabel}>Name</label>
+                        <input type="text" name="first_name" value={user.first_name ? user.first_name : '' } onChange={handleChange} />
+                    </div>
+                    <div className={styles.formDataContainer+' col-4'}>
+                        <label className={styles.formLabel}>Surname</label>
+                        <input type="text" name="last_name" value={user.last_name ? user.last_name : ''} onChange={handleChange} />
+                    </div>
+                    <div className={styles.formDataContainer+' col-4'}>
+                        <label className={styles.formLabel}>Password</label>
+                        <input name="password" className={styles.formInput} type={showPassword ? "text" : "password"} 
+                            value={user.password} placeholder='password' onChange={handleChange}  />
+                            <button type="button" onClick={togglePasswordVisibility} className={styles.togglePasswordButton}>
+                            {showPassword ? <EyeClosedIcon /> : <EyeOpenIcon />}
+                            </button>
+                    </div>
 
-                <div className={styles.formDataContainer}>
-                    <label className={styles.formLabel}>Email</label>
-                    <input type="email" name="email" value={user.email ? user.email : ''} onChange={handleChange} />
-                </div>
-                <div className='m-3'>
-                    <button className={styles.buttonLogin} type="submit">Update Profile</button>
+                    <div className={styles.formDataContainer+' col-4'}>
+                        <label className={styles.formLabel}>Email</label>
+                        <input type="email" name="email" value={user.email ? user.email : ''} onChange={handleChange} />
+                    </div>
+                    <div className='m-3'>
+                        <button className={styles.buttonLogin} type="submit">Update Profile</button>
+                    </div>
                 </div>
             </form>
         </div>
