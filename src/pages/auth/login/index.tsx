@@ -10,10 +10,10 @@ const LoginPage: React.FC = () => {
   const { setIsLogin } = useLoginContext();
   const { isLogged, setIsLogged } = useLoggedContext();
 
-  const handleLoginSuccess = () => {
+  const handleLoginSuccess = async () => {
     setIsLogged(true);
     localStorage.setItem("isLogged", "true");
-    router.push('/');
+    await router.push('/');
   };
   
     useEffect(() => {    

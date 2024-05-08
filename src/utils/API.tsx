@@ -1,35 +1,36 @@
-
-import axios from 'axios';
+import axios, { AxiosRequestConfig, AxiosError } from 'axios';
 import cookie from 'cookie';
 
-
-const baseURL = process.env.NODE_ENV === 'production'
-  ? process.env.NEXT_PUBLIC_API_URL_PRODUCTION
-  : process.env.NEXT_PUBLIC_API_URL_DEVELOPMENT;
+const baseURL: string = process.env.NODE_ENV === 'production'
+  ? process.env.NEXT_PUBLIC_API_URL_PRODUCTION!
+  : process.env.NEXT_PUBLIC_API_URL_DEVELOPMENT!;
 
 const axiosClient = axios.create({
-    baseURL: baseURL 
-  });
+  baseURL: baseURL,
+});
 
-  axiosClient.interceptors.request.use((config) => {
-    if (typeof window !== 'undefined') {
-      // Try to read the token from the cookies included in the headers of the incoming request
-      const cookies = cookie.parse(process.browser ? document.cookie : config.headers.cookie);
-      const token = cookies.token;
-      config.headers.Cookie = config.headers.cookie;
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    } else {
-      // Client-side: safely use localStorage
-        const token = localStorage.getItem('token');
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+axiosClient.interceptors.request.use((config) => {
+  let token: string | null = '';
+
+  if (typeof window === 'undefined') {
+    // Server-side: Read from incoming request cookies
+    if (config.headers && config.headers.cookie) {
+      const cookies = cookie.parse(config.headers.cookie);
+      token = cookies.token; // Adjust based on your cookie's token key
     }
-    return config;
-  }, (error) => {
-    return Promise.reject(error);
+  } else {
+    // Client-side: Read from localStorage
+    token = localStorage.getItem('token');
+  }
+
+  if (token) {
+    config.headers = config.headers || {};
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  return config;
+}, (error: AxiosError) => {
+  return Promise.reject(error);
 });
 
 export default axiosClient;

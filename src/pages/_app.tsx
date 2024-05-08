@@ -5,11 +5,13 @@ import Navbar from '../components/Navbar';
 import { AppProvider, IsLoggedProvider, IsAllowedProvider } from '../context/AppContext';
 import React from 'react';
 import { LoaderProvider } from '../context/LoaderContext';
+import { AuthProvider } from '@/utils/auth/auth';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
+    <AuthProvider>
       <AppProvider>
         <IsAllowedProvider>
           <IsLoggedProvider>
@@ -20,6 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </IsLoggedProvider>
         </IsAllowedProvider>
       </AppProvider>
+    </AuthProvider>
     </>
   );
 }

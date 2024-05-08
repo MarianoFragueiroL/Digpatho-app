@@ -37,3 +37,13 @@ export interface UserData {
 export interface ProfileProps {
   userData: UserData;
 }
+
+export interface AuthContextType {
+  token: string;
+  login: (username: string, password: string) => Promise<void>;
+  logout: () => void;
+}
+
+export interface AuthProviderProps {
+  children: ReactNode;
+}
