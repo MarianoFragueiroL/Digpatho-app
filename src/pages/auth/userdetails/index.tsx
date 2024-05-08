@@ -1,15 +1,18 @@
 
-import { useState, FormEvent, useEffect, ChangeEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { ProfileProps, UserData } from '@/types/login/interfaces';
 import API from '../../../utils/API';
 import styles from './userdetails.module.css'
 import { EyeClosedIcon, EyeOpenIcon } from '@/components/eyeicon';
 import { useLoader } from '@/context/LoaderContext';
+import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import loginAuth from '@/utils/auth/loginAuth';
 
 
 
-const UserDetails: React.FC<ProfileProps> = ({ userData }) => {
+const UserDetails: NextPage<ProfileProps> = ({ userData }) => {
+    const router = useRouter();
     const { setLoading } = useLoader();
     const [showPassword, setShowPassword] = useState(false);
     const [user, setUser] = useState<UserData>({
@@ -20,7 +23,7 @@ const UserDetails: React.FC<ProfileProps> = ({ userData }) => {
       });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });        
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -55,12 +58,11 @@ const UserDetails: React.FC<ProfileProps> = ({ userData }) => {
         setLoading(false);
     }
   }
-  useEffect(() => {
-    setLoading(true);
-    getUserData();
-  }, []);
 
-  return (
+    useEffect(() => {
+        getUserData();
+    }, [ router, getUserData]);
+    return (
     <>
     {user &&(
         <div className='container'>
@@ -98,4 +100,4 @@ const UserDetails: React.FC<ProfileProps> = ({ userData }) => {
   );
 };
 
-export default loginAuth(  UserDetails);
+export default  loginAuth (UserDetails);
