@@ -61,7 +61,7 @@ const UserDetails: NextPage<ProfileProps> = ({ userData }) => {
 
     useEffect(() => {
         getUserData();
-    }, [ router, getUserData]);
+    }, [ ]);
     return (
     <>
     {user &&(
