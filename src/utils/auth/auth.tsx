@@ -1,14 +1,13 @@
 
 import { AuthContextType, AuthProviderProps } from '@/types/login/interfaces';
 import API from '../API'
-
+import axios, { AxiosRequestConfig, AxiosError } from 'axios';
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import axios from 'axios';
 import Cookie from 'js-cookie';
 import { GetServerSideProps } from 'next';
 import cookie from 'cookie';
 
-export const verifyToken = async (token: string, apiUrl: string = '/api/token/verify'): Promise<boolean> => {
+export const verifyToken = async ( apiUrl: string = '/api/token/verify'): Promise<boolean> => {
     try {
 
         const response = await API(apiUrl);
@@ -22,9 +21,11 @@ export const verifyToken = async (token: string, apiUrl: string = '/api/token/ve
     }
 };
   
-const baseURL = process.env.NODE_ENV === 'production'
-  ? process.env.NEXT_PUBLIC_API_URL_PRODUCTION
-  : process.env.NEXT_PUBLIC_API_URL_DEVELOPMENT;
+
+const baseURL: string = process.env.NODE_ENV === 'production'
+  ? process.env.NEXT_PUBLIC_API_URL_PRODUCTION!
+  : process.env.NEXT_PUBLIC_API_URL_DEVELOPMENT!;
+
 
 const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
@@ -62,6 +63,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     );
   };
 
+
   export const useAuth = (): AuthContextType => {
     const context = useContext(AuthContext);
     if (!context) {
@@ -70,19 +72,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return context;
   };
 
-  export const getServerSideProps: GetServerSideProps = async (context) => {
+//   export const getServerSideProps: GetServerSideProps = async (context) => {
       
-    const isAuthenticated = await API('/api/token/verify');
-    if (!isAuthenticated) {
-      return {
-        redirect: {
-          destination: '/login',
-          permanent: false,
-        },
-      };
-    }
+//     let isAuthenticated = await API(baseURL+'/api/token/verify');
+//     if (!isAuthenticated) {
+//       return {
+//         redirect: {
+//           destination: '/auth/login',
+//           permanent: false,
+//         },
+//       };
+//     }
   
-    return {
-      props: { isAuthenticated },
-    };
-  };
+//     return {
+//       props: { isAuthenticated },
+//     };
+//   };

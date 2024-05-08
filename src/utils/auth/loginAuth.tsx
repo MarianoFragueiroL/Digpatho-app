@@ -15,9 +15,8 @@ const loginAuth = <P extends object>(WrappedComponent: NextPage<P>): NextPage<P>
 
     useEffect(() => {
       async function checkAuth() {
-        const token = localStorage.getItem('token');
         setLoading(true);
-        const isValidToken = token ? await verifyToken(token) : false;
+        const isValidToken =  await verifyToken() ;
         setIsLogged(isValidToken);
         localStorage.setItem("isLogged", isValidToken ? "true" : "false");
         if (!isValidToken ) {

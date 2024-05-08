@@ -17,7 +17,6 @@
 }
 .formInput{
     border: none;
-    width: 50%;
     padding-right: 40px; /* Asegúrate de que el texto no se sobreponga al botón */
 }
 .buttonLogin{

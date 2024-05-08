@@ -4,11 +4,13 @@ import LoginForm from '../../../components/auth/Login/LoginForm';
 import { useRouter } from 'next/router';
 import styles from './Login.module.css';
 import { useLoginContext, useLoggedContext } from '../../../context/AppContext';
+import { useAuth } from '@/utils/auth/auth';
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
   const { setIsLogin } = useLoginContext();
   const { isLogged, setIsLogged } = useLoggedContext();
+  const { logout } = useAuth();
 
   const handleLoginSuccess = async () => {
     setIsLogged(true);
@@ -16,7 +18,8 @@ const LoginPage: React.FC = () => {
     await router.push('/');
   };
   
-    useEffect(() => {    
+    useEffect(() => {  
+      logout()  
       setIsLogin(true);
       localStorage.removeItem("token");
     return () => {
