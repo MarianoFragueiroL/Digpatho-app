@@ -19,6 +19,9 @@
     text-decoration:none;
     justify-content: space-between;
   }
+  .navConfigEnd{
+    width: 10%;
+  }
   .navbarLinks {
     list-style: none;
     display: flex;
@@ -52,4 +55,41 @@
     border: none;
     background-color: #eeeeee;
     cursor: pointer;
+  }
+  .navbarLink {
+    margin-right: 15px;
+    text-decoration: none;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .configIcon {
+    cursor: pointer;
+  }
+  
+  .dropdownMenu {
+    display: block;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  .dropdownMenu li {
+    list-style: none;
+    padding: 8px 12px;
+  }
+  
+  .dropdownMenu li a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .dropdownMenu li a:hover {
+    background-color: #ddd;
   }

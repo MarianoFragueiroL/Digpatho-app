@@ -12,12 +12,12 @@ const Ki67Page: React.FC = () => {
   const handleUpdatedImage = ( data:ImageData, index: number) => {
     const newImageInfo: ImageData = {
       name: data.name,
-      original_image: data.original_image,
-      converted_image: data.converted_image,
-      ki67: data.ki67,
-      positive: data.positive,
-      total: data.total,
-      index: index
+      ia_ki67: data.ia_ki67,
+      ia_positive_cells: data.ia_positive_cells,
+      ia_total_cells: data.ia_total_cells,
+      index: index,
+      url_image_upload: data.url_image_upload,
+      url_ia_image_result: data.url_ia_image_result,
     };
     setImagesData(prevImages => [...prevImages, newImageInfo]);
   };
@@ -26,25 +26,45 @@ const Ki67Page: React.FC = () => {
     <div className={styles.form_container}>
       <div className={styles.title}>
         <h1>Upload KI-67 Image</h1>
-
       </div>
-      <Ki67Form  onUpdateFile= {handleUpdatedImage} />
+      {imagesData.length == 0 && (
+        <div className={'container'+styles.c_card}>
+          <Ki67Form  onUpdateFile= {handleUpdatedImage} />
+        </div>
+      )}
       {imagesData.length > 0 && (
       imagesData.map((image, index) => (
-        <div className='container ' key={index}>
-          <div>
-            <p>Ki67 Index: {image.ki67}</p>
-            <p>Positive Cells: {image.positive}</p>
-            <p>Total Cells: {image.total}</p>
-          </div>
+        <div className={'container'+styles.c_card} key={index}>
           <div className='d-flex'>
-            <div className='col-6 m-3'>
-              <img className='w-100' src={`data:image/jpeg;base64,${image.original_image}`} alt="Original" />
-
-            </div>
-            <div className='col-6 m-3'>
-              <img className='w-100' src={`data:image/jpeg;base64,${image.converted_image}`} alt="Processed" />
-            </div>
+              <div className='col-4 m-3'>
+                <img className='w-100' src={`${image.url_image_upload}`} alt="Original" />
+              </div>
+              <div className='col-4 m-3 d-flex flex-column'>
+                <img className='w-100' src={`${image.url_ia_image_result}`} alt="Processed" />
+                <div className='d-flex '>
+                  <div className='d-flex flex-column'>
+                    <label className={styles.formLabel}>IA KI67</label>
+                    <input value={image.ia_ki67}/>
+                  </div>
+                  <div className='d-flex flex-column'>
+                      <label className={styles.formLabel}>IA TOTAL CELLS</label>
+                      <input value={image.ia_total_cells}/>
+                  </div>
+                </div>
+                <div className='d-flex '>
+                    <div className='d-flex flex-column'>
+                      <label className={styles.formLabel}>IA POSITVE CELLS</label>
+                      <input value={image.ia_positive_cells}/>
+                    <div className='d-flex flex-column'>
+                      <label className={styles.formLabel}>IA NEGATIVE CELLS</label>
+                      <input value={image.ia_total_cells}/>
+                  </div>
+                </div>
+                </div>
+              </div>
+              <div  className='col-4'>
+                <input/>
+             </div>
           </div>
         </div>
       ))

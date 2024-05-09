@@ -3,7 +3,7 @@ import { useState, FormEvent, useEffect } from 'react';
 import { ProfileProps, UserData } from '@/types/login/interfaces';
 import API from '../../../utils/API';
 import styles from './userdetails.module.css'
-import { EyeClosedIcon, EyeOpenIcon } from '@/components/eyeicon';
+import { EyeClosedIcon, EyeOpenIcon } from '@/components/fa_icons';
 import { useLoader } from '@/context/LoaderContext';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';

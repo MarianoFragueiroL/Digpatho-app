@@ -1,10 +1,11 @@
 export interface ImageData {
     name: string;
-    original_image: string; // Base64 encoded string
-    converted_image: string; // Base64 encoded string of the processed image
-    ki67: number;
-    positive: number;
-    total: number;
+    url_image_upload: string; // url  string
+    url_ia_image_result: string; // url  string of the processed image
+    ia_ki67: number;
+    ia_positive_cells: number;
+    ia_negative_cells?: number;
+    ia_total_cells: number;
     width?: number;
     height?: number;
     index?: number;

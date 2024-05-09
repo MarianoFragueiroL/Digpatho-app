@@ -1,0 +1,47 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+.c_Container{
+    min-width: 100px;
+  }
+.iconLabelContainer {
+display: flex;
+align-items: center;
+cursor: pointer;
+}
+.icon {
+    cursor: pointer;
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+}
+
+.dropdownMenu {
+    display: block;
+    position: absolute;
+    top: 100%;
+    right: -50%;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    font-size: 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.dropdownMenu li {
+    padding: 8px 12px;
+}
+
+.dropdownMenu li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+}
+
+.dropdownMenu li a:hover {
+    background-color: #ddd;
+}
+.label {
+    font-size: 14px;
+}

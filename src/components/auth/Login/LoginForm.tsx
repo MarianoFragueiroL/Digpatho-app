@@ -2,7 +2,7 @@ import React, { useState, FormEvent } from 'react';
 import styles from '../../../pages/auth/login/Login.module.css';
 import {LoginProps} from '../../../types/login/interfaces'
 import { useLoader } from '../../../context/LoaderContext';
-import {EyeClosedIcon, EyeOpenIcon} from '../../eyeicon'
+import {EyeClosedIcon, EyeOpenIcon} from '../../fa_icons'
 import { useAuth } from '@/utils/auth/auth';
 
 const LoginForm: React.FC<LoginProps> = ({ onLoginSuccess }) => {
