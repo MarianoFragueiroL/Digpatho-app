@@ -7,7 +7,7 @@ interface DropdownMenuProps {
   label?:string
 }
 const DropdownMenu: React.FC<DropdownMenuProps> = ({ icon, children, label}) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleMouseEnter = () => {
     setIsVisible(true);
