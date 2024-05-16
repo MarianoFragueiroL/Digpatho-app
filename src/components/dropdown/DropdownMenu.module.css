@@ -20,7 +20,7 @@ cursor: pointer;
     display: block;
     position: absolute;
     top: 100%;
-    right: -50%;
+    right: 0%;
     background-color: white;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;

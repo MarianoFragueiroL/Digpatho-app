@@ -38,13 +38,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setToken(access);
         if (typeof window !== 'undefined') {
             localStorage.setItem('token', access);
-            console.log('Token stored in localStorage:', localStorage.getItem('token')); // Debug
           }
         await localStorage.setItem('token', response.data.access);        
         Cookie.set('token', access, { expires: 1, secure: process.env.NODE_ENV === 'production' });
         if (typeof document !== 'undefined') {
             const cookies = cookie.parse(document.cookie);
-            console.log('Token stored in cookies:', cookies.token); // Debug
           }
       } catch (err) {
         throw err;

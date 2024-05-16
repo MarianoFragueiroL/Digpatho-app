@@ -6,6 +6,14 @@ export interface ImageData {
     ia_positive_cells: number;
     ia_negative_cells?: number;
     ia_total_cells: number;
+    doc_ki67?: number;
+    doc_positive_cells: number;
+    doc_negative_cells: number;
+    doc_wrong_negative_cells?: string[];
+    doc_wrong_positives_cells?: string[];
+    doc_add_negative_cells?: string[];
+    doc_add_positives_cells?: string[];
+    doc_total_cells?: number;
     width?: number;
     height?: number;
     index?: number;
