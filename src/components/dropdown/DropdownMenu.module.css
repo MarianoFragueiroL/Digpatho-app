@@ -20,13 +20,14 @@ cursor: pointer;
     display: block;
     position: absolute;
     top: 100%;
-    right: 0%;
+    right: -50%;
     background-color: white;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
     font-size: 12px;
     list-style: none;
     padding: 0;
+    min-width: 150px;
     margin: 0;
 }
 .dropdownMenu li {
