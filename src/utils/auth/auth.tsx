@@ -69,20 +69,3 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
     return context;
   };
-
-//   export const getServerSideProps: GetServerSideProps = async (context) => {
-      
-//     let isAuthenticated = await API(baseURL+'/api/token/verify');
-//     if (!isAuthenticated) {
-//       return {
-//         redirect: {
-//           destination: '/auth/login',
-//           permanent: false,
-//         },
-//       };
-//     }
-  
-//     return {
-//       props: { isAuthenticated },
-//     };
-//   };
