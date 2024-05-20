@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import API from '../../utils/API';
 import {UpdateFileProps} from '../../types/ki67/interfaces'
 import { useLoader } from '../../context/LoaderContext';
+import { allUrl } from '@/types/urlsvariables';
 
 type ImageFile = {
     file: File | null;
@@ -47,7 +48,7 @@ const Ki67Form: React.FC<UpdateFileProps> = ({onUpdateFile}) => {
           event.preventDefault();
           setLoading(true);
           try {
-            const response = await API.post('/api/processki67',  formData, {
+            const response = await API.post(allUrl.bkProcesski67ImageData,  formData, {
               headers: { 'Content-Type': 'multipart/form-data' }
             });
             onUpdateFile(response.data, index);
