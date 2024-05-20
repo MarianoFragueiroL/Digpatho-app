@@ -2,7 +2,7 @@
 import React, { useState, FormEvent } from 'react';
 import Ki67Form from '../../../components/ki67/ki67Form';
 import loginAuth from '@/utils/auth/loginAuth';
-import {ImageData} from '../../../types/ki67/interfaces'
+import {ImageData, ErrorsUpdateValuesImage} from '../../../types/ki67/interfaces'
 import styles from './uploadki67.module.css'
 import { useLoader } from '@/context/LoaderContext';
 import API from '../../../utils/API';
@@ -13,6 +13,8 @@ import { allUrl } from '@/types/urlsvariables';
 const Ki67Page: React.FC = () => {
   const [imagesData, setImagesData] = useState<ImageData[]>([]);
   const { setLoading } = useLoader();
+  const [errors, setErrors] = useState<ErrorsUpdateValuesImage>({});
+
 
 
   const handleUpdatedImage = ( data:ImageData, index: number) => {
@@ -76,12 +78,20 @@ const Ki67Page: React.FC = () => {
     updateImageInfo(index, newValues);
   };
   const handleUpdateValues = async (e: FormEvent) => {
-    console.log('Update values', imagesData[0].id);
     e.preventDefault();
     try {
       setLoading(true);
-      await API.put( `${allUrl.bkUpdateki67ImageData}${imagesData[0].id}`, imagesData[0]);
-    } catch (err) {
+      const response = await API.put( `${allUrl.bkUpdateki67ImageData}${imagesData[0].id}`, imagesData[0]);
+      console.log(response);
+      if(response.status){
+        console.log(response);
+        
+      }
+    } catch (err:any) {
+      console.log(err);
+      if (err.response && err.response.data) {
+        setErrors(err.response.data);
+      }
       console.log('Failed to login');
     } finally {
       setLoading(false);
@@ -151,30 +161,50 @@ const Ki67Page: React.FC = () => {
                       <label className={styles.formLabel}>NEGATIVE CELLS</label>
                       <input type='text' name='doc_negative_cells' value={image.doc_negative_cells} disabled/>
                     </div>
+                    
                   </div>
+                  <div  className='d-flex flex-column col-8 m-3'>
                   <div className='d-flex flex-column'>
                       <div className='d-flex flex-column'>
                         <label className={styles.formLabel}>WRONG POSITVE CELLS</label>
-                        <input type='text' name='doc_wrong_positive_cells' onChange={(e) => handleInputChange(e, index, 'doc_wrong_positive_cells')}/>
+                        <input type='text' name='doc_wrong_positive_cells' onChange={(e) => handleInputChange(e, index, 'doc_wrong_positive_cells')}
+                        className={errors.doc_wrong_positive_cells ? styles.error : ''}/>
+                        {errors.doc_wrong_positive_cells && (
+                          <span className="error-message">Make sure the last value is not a , or ;</span>
+                        )}
                       </div>
                       <div className='d-flex flex-column'>
                         <label className={styles.formLabel}>WRONG NEGATIVE CELLS</label>
-                        <input type='text' name='doc_wrong_negative_cells' onChange={(e) => handleInputChange(e, index, 'doc_wrong_negative_cells')} />
+                        <input type='text' name='doc_wrong_negative_cells' onChange={(e) => handleInputChange(e, index, 'doc_wrong_negative_cells')} 
+                        className={errors.doc_wrong_negative_cells ? styles.error : ''}/>
+                        {errors.doc_wrong_negative_cells && (
+                          <span className="error-message">Make sure the last value is not a , or ;</span>
+                        )}
                       </div>
                   </div>
                   <div className='d-flex flex-column'>
                       <div className='d-flex flex-column'>
                         <label className={styles.formLabel}>ADD POSITVE CELLS</label>
-                        <input type='text' name='doc_add_positive_cells' onChange={(e) => handleInputChange(e, index, 'doc_add_positive_cells')}/>
+                        <input type='text' name='doc_add_positive_cells' onChange={(e) => handleInputChange(e, index, 'doc_add_positive_cells')}
+                        className={errors.doc_add_positive_cells ? styles.error : ''}/>
+                        {errors.doc_add_positive_cells && (
+                          <span className="error-message">Make sure the last value is not a , or ;</span>
+                        )}
                       </div>
                       <div className='d-flex flex-column'>
                         <label className={styles.formLabel}>ADD NEGATIVE CELLS</label>
-                        <input type='text' name='doc_add_negative_cells' onChange={(e) => handleInputChange(e, index, 'doc_add_negative_cells')} />
+                        <input type='text' name='doc_add_negative_cells' onChange={(e) => handleInputChange(e, index, 'doc_add_negative_cells')} 
+                        className={errors.doc_add_negative_cells ? styles.error : ''}/>
+                        {errors.doc_add_negative_cells && (
+                          <span className="error-message">Make sure the last value is not a , or ;</span>
+                        )}
                       </div>
                   </div>
-                  <div className=' d-flex align-items-center justify-content-end'>
+                  <div className=' d-flex align-items-center justify-content-end m-3'>
                     <button className='btn btn-success' type="submit" > Update Resutls </button>
                   </div>
+                  </div>
+
                 </form>
               </div>
             </div>

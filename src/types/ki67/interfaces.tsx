@@ -34,3 +34,9 @@ export interface AnalysisImage {
 export interface AnalysisProps {
   images: AnalysisImage[];
 }
+export interface ErrorsUpdateValuesImage {
+  doc_wrong_positive_cells?: string[];
+  doc_wrong_negative_cells?: string[];
+  doc_add_positive_cells?: string[];
+  doc_add_negative_cells?: string[];
+}
