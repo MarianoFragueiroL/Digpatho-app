@@ -1,16 +1,23 @@
 
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import Ki67Form from '../../../components/ki67/ki67Form';
 import loginAuth from '@/utils/auth/loginAuth';
 import {ImageData} from '../../../types/ki67/interfaces'
 import styles from './uploadki67.module.css'
+import { useLoader } from '@/context/LoaderContext';
+import API from '../../../utils/API';
+import { allUrl } from '@/types/urlsvariables';
+
 
 
 const Ki67Page: React.FC = () => {
   const [imagesData, setImagesData] = useState<ImageData[]>([]);
+  const { setLoading } = useLoader();
+
 
   const handleUpdatedImage = ( data:ImageData, index: number) => {
     const newImageInfo: ImageData = {
+      id: data.id,
       name: data.name,
       ia_ki67: data.ia_ki67,
       ia_positive_cells: data.ia_positive_cells,
@@ -24,9 +31,9 @@ const Ki67Page: React.FC = () => {
       doc_positive_cells: data.ia_positive_cells,
       doc_negative_cells: data.ia_negative_cells||0,
       doc_wrong_negative_cells: [],
-      doc_wrong_positives_cells: [],
+      doc_wrong_positive_cells: [],
       doc_add_negative_cells: [],
-      doc_add_positives_cells: [],
+      doc_add_positive_cells: [],
     };
     setImagesData(prevImages => [...prevImages, newImageInfo]);
   };
@@ -43,8 +50,8 @@ const Ki67Page: React.FC = () => {
   const handleInputChange = ( e: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof ImageData) => {
     const values = e.target.value.split(/[;,]/).map(item => item.trim());        
     let newValues: Partial<ImageData> = {};
-    let doc_wrong_positives_cells: string[] = imagesData[index].doc_wrong_positives_cells||[];
-    let doc_add_positives_cells: string[] = imagesData[index].doc_add_positives_cells||[];
+    let doc_wrong_positives_cells: string[] = imagesData[index].doc_wrong_positive_cells||[];
+    let doc_add_positive_cells: string[] = imagesData[index].doc_add_positive_cells||[];
     let doc_add_negative_cells: string[] = imagesData[index].doc_add_negative_cells||[];
     let doc_wrong_negative_cells: string[] = imagesData[index].doc_wrong_negative_cells||[];
     let negativesTotal: number = imagesData[index].doc_negative_cells;
@@ -52,11 +59,11 @@ const Ki67Page: React.FC = () => {
     let total: number = imagesData[index].ia_total_cells || 0;
     let iaNegative: number = imagesData[index].ia_negative_cells || 0;
     
-    if (field === 'doc_wrong_negative_cells' || field === 'doc_wrong_positives_cells' || field === 'doc_add_negative_cells' || field === 'doc_add_positives_cells') {
+    if (field === 'doc_wrong_negative_cells' || field === 'doc_wrong_positive_cells' || field === 'doc_add_negative_cells' || field === 'doc_add_positive_cells') {
       newValues[field] = values;  // Assigning string array directly      
     }
     
-    positive = positive +  doc_add_positives_cells.length - doc_wrong_positives_cells.length;
+    positive = positive +  doc_add_positive_cells.length - doc_wrong_positives_cells.length;
     negativesTotal = iaNegative + doc_add_negative_cells.length - doc_wrong_negative_cells.length;
 
     total =  positive + negativesTotal;
@@ -68,8 +75,17 @@ const Ki67Page: React.FC = () => {
     newValues.doc_negative_cells = negativesTotal;
     updateImageInfo(index, newValues);
   };
-  const handleUpdateValues = async () => {
-    console.log('Update values');
+  const handleUpdateValues = async (e: FormEvent) => {
+    console.log('Update values', imagesData[0].id);
+    e.preventDefault();
+    try {
+      setLoading(true);
+      await API.put( `${allUrl.bkUpdateki67ImageData}${imagesData[0].id}`, imagesData[0]);
+    } catch (err) {
+      console.log('Failed to login');
+    } finally {
+      setLoading(false);
+    }
     
   };
   
@@ -129,17 +145,17 @@ const Ki67Page: React.FC = () => {
                   <div  className='d-flex flex-column col-4 m-3'>
                     <div className='d-flex flex-column'>
                       <label className={styles.formLabel}>POSITVE CELLS</label>
-                      <input type='text' name='doc_positive_cells' value={image.doc_positive_cells}/>
+                      <input type='text' name='doc_positive_cells' value={image.doc_positive_cells} disabled/>
                     </div>
                     <div className='d-flex flex-column'>
                       <label className={styles.formLabel}>NEGATIVE CELLS</label>
-                      <input type='text' name='doc_negative_cells' value={image.doc_negative_cells} />
+                      <input type='text' name='doc_negative_cells' value={image.doc_negative_cells} disabled/>
                     </div>
                   </div>
                   <div className='d-flex flex-column'>
                       <div className='d-flex flex-column'>
                         <label className={styles.formLabel}>WRONG POSITVE CELLS</label>
-                        <input type='text' name='doc_wrong_positives_cells' onChange={(e) => handleInputChange(e, index, 'doc_wrong_positives_cells')}/>
+                        <input type='text' name='doc_wrong_positive_cells' onChange={(e) => handleInputChange(e, index, 'doc_wrong_positive_cells')}/>
                       </div>
                       <div className='d-flex flex-column'>
                         <label className={styles.formLabel}>WRONG NEGATIVE CELLS</label>
@@ -149,7 +165,7 @@ const Ki67Page: React.FC = () => {
                   <div className='d-flex flex-column'>
                       <div className='d-flex flex-column'>
                         <label className={styles.formLabel}>ADD POSITVE CELLS</label>
-                        <input type='text' name='doc_add_positives_cells' onChange={(e) => handleInputChange(e, index, 'doc_add_positives_cells')}/>
+                        <input type='text' name='doc_add_positive_cells' onChange={(e) => handleInputChange(e, index, 'doc_add_positive_cells')}/>
                       </div>
                       <div className='d-flex flex-column'>
                         <label className={styles.formLabel}>ADD NEGATIVE CELLS</label>

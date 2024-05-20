@@ -8,6 +8,7 @@ import { useLoader } from '@/context/LoaderContext';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import loginAuth from '@/utils/auth/loginAuth';
+import { allUrl } from '@/types/urlsvariables';
 
 
 
@@ -32,7 +33,7 @@ const UserDetails: NextPage<ProfileProps> = ({ userData }) => {
     e.preventDefault();
     try{
         setLoading(true);
-        const response = await API.put('/api/users/me/',  user);
+        const response = await API.put(allUrl.bkUpdateUserProfile,  user);
         setUser({
             first_name: response.data?.first_name || '',
             last_name: response.data?.last_name || '',
@@ -46,7 +47,7 @@ const UserDetails: NextPage<ProfileProps> = ({ userData }) => {
   };
   const getUserData = async ()=>{
     try {
-        const response = await API('/api/users/me/');
+        const response = await API(allUrl.bkUpdateUserProfile);
         setUser({
             first_name: response.data?.first_name || '',
             last_name: response.data?.last_name || '',
