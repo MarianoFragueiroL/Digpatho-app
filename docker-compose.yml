@@ -4,6 +4,6 @@ services:
     build: .
     environment:
       - NODE_ENV=dev
-      - NEXT_PUBLIC_API_URL=http://digpatho-bl-4-611930570.us-east-1.elb.amazonaws.com/
+      - NEXT_PUBLIC_API_URL= http://digpatho-bl-4-611930570.us-east-1.elb.amazonaws.com/
     ports:
       - "3000:3000"
