@@ -7,6 +7,7 @@ import styles from './uploadki67.module.css'
 import { useLoader } from '@/context/LoaderContext';
 import API from '../../../utils/API';
 import { allUrl } from '@/types/urlsvariables';
+import ImageModal from '@/components/image_modal/ImageModal ';
 
 
 
@@ -118,7 +119,10 @@ const Ki67Page: React.FC = () => {
                 <img className='w-100' src={`${image.url_image_upload}`} alt="Original" />
               </div>
               <div className='col-4 m-3 d-flex flex-column'>
-                <img className='w-100' src={`${image.url_ia_image_result}`} alt="Processed" />
+              <div>
+                <ImageModal src={image.url_ia_image_result} alt="Processed" />
+              </div>
+                {/* <img className='w-100' src={`${image.url_ia_image_result}`} alt="Processed" /> */}
                 <div className='d-flex '>
                   <div className='d-flex flex-column'>
                     <label className={styles.formLabel}>IA KI67</label>
