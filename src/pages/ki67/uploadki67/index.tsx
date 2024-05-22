@@ -122,7 +122,6 @@ const Ki67Page: React.FC = () => {
               <div>
                 <ImageModal src={image.url_ia_image_result} alt="Processed" />
               </div>
-                {/* <img className='w-100' src={`${image.url_ia_image_result}`} alt="Processed" /> */}
                 <div className='d-flex '>
                   <div className='d-flex flex-column'>
                     <label className={styles.formLabel}>IA KI67</label>
