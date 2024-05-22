@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Modal from 'react-modal';
 import PaintableImage from './PaintImage'; // Ajusta la ruta según sea necesario
 import { ImageModalProps } from '@/types/components/images/interfaces';
+import styles from './Imagemodal.module.css';
 
 // Configuración para que el modal se monte en el elemento root
 Modal.setAppElement('#__next');
@@ -25,19 +26,19 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, alt }) => {
   };
 
   return (
-    <div>
-      <img className='w-100' src={src} alt={alt} onClick={openModal} style={{ cursor: 'pointer' }} />
+    <div className='d-flex'>
+        <img className='w-100' src={src} onClick={openModal} style={{ cursor: 'pointer' }} />
 
-      <Modal
+        <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={{
-          overlay: {
+            overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.75)',
-          },
-          content: {
+            },
+            content: {
             display: 'flex',
-            flexDirection: 'row',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
             top: '50%',
@@ -49,64 +50,24 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, alt }) => {
             padding: 0,
             border: 'none',
             background: 'none',
-          },
+            },
         }}
-      >
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div
-            style={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              marginRight: '10px', 
-              justifyContent: 'center' 
-            }}
-          >
-            <div 
-              onClick={() => handleColorChange('#ff0000')} 
-              style={{
-                width: '30px', 
-                height: '30px', 
-                backgroundColor: '#ff0000', 
-                cursor: 'pointer', 
-                marginBottom: '10px'
-              }}
-            />
-            <div 
-              onClick={() => handleColorChange('#00ff00')} 
-              style={{
-                width: '30px', 
-                height: '30px', 
-                backgroundColor: '#00ff00', 
-                cursor: 'pointer', 
-                marginBottom: '10px'
-              }}
-            />
-            <div 
-              onClick={() => handleColorChange('#0000ff')} 
-              style={{
-                width: '30px', 
-                height: '30px', 
-                backgroundColor: '#0000ff', 
-                cursor: 'pointer'
-              }}
-            />
-          </div>
-          <button
-            onClick={closeModal}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'white',
-              fontSize: '24px',
-              cursor: 'pointer',
-              marginBottom: '10px'
-            }}
-          >
-            &times;
-          </button>
+        >
+        <div className={styles.topcontainer} >
+            <div className={styles.colorscontainer} >
+                <div className='d-flex m-3'>
+                    <div  onClick={() => handleColorChange('#ff0000')} className={styles.colorboxred} />
+                    <div onClick={() => handleColorChange('#00ff00')} className={styles.colorboxgreen} />
+                    <div onClick={() => handleColorChange('#0000ff')} className={styles.colorboxblue} />
+                </div>
+                <button onClick={closeModal}  className={styles.buttonclose}>
+                    &times;
+                </button>
+            </div>
+
         </div>
-        <PaintableImage src={src} alt={alt} color={color} />
-      </Modal>
+        <PaintableImage src={src} color={color} />
+        </Modal>
     </div>
   );
 };

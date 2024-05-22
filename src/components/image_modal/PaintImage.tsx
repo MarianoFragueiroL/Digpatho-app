@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from 'react';
 
 
 
-const PaintableImage: React.FC<PaintableImageProps> = ({ src, alt, color }) => {
+const PaintableImage: React.FC<PaintableImageProps> = ({ src, color }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isPainting, setIsPainting] = useState(false);
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | undefined>(undefined);
@@ -83,7 +83,6 @@ const PaintableImage: React.FC<PaintableImageProps> = ({ src, alt, color }) => {
       onMouseMove={paint}
       onMouseUp={exitPaint}
       onMouseLeave={exitPaint}
-      alt={alt}
       style={{ cursor: 'crosshair', border: '1px solid black' }}
     />
   );
