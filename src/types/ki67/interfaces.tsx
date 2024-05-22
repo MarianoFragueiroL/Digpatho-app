@@ -1,27 +1,27 @@
+import React, { FormEvent } from 'react';
+
 export interface ImageData {
-    id: number;
-    name: string;
-    url_image_upload: string; // url  string
-    url_ia_image_result: string; // url  string of the processed image
-    ia_ki67: number;
-    ia_positive_cells: number;
-    ia_negative_cells?: number;
-    ia_total_cells: number;
-    doc_ki67?: number;
-    doc_positive_cells: number;
-    doc_negative_cells: number;
-    doc_wrong_negative_cells?: string[];
-    doc_wrong_positive_cells?: string[];
-    doc_add_negative_cells?: string[];
-    doc_add_positive_cells?: string[];
-    doc_total_cells?: number;
-    width?: number;
-    height?: number;
-    index?: number;
-  }
+  id: string;
+  name: string;
+  ia_ki67: number;
+  ia_positive_cells: number;
+  ia_negative_cells: number;
+  ia_total_cells: number;
+  index: number;
+  url_image_upload: string;
+  url_ia_image_result: string;
+  doc_ki67: number;
+  doc_total_cells: number;
+  doc_positive_cells: number;
+  doc_negative_cells: number;
+  doc_wrong_negative_cells: string[];
+  doc_wrong_positive_cells: string[];
+  doc_add_negative_cells: string[];
+  doc_add_positive_cells: string[];
+}
   
 export interface UpdateFileProps {
-    onUpdateFile: (data: ImageData, index: number) => void;
+  onUpdateFile: (data: ImageData, index: number) => void;
 }
 
 export interface AnalysisImage {
@@ -34,9 +34,29 @@ export interface AnalysisImage {
 export interface AnalysisProps {
   images: AnalysisImage[];
 }
+
+export interface ImageInfoProps {
+  image: ImageData;
+  modifiedImage: string;
+  handleImageSave: (dataUrl: string) => void;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof ImageData) => void;
+  index: number;
+  errors: Record<string, string>;
+}
+
+
+export interface ImageDetailsFormProps {
+  image: ImageData;
+  index: number;
+  errors: ErrorsUpdateValuesImage;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>, index: number, field: keyof ImageData) => void;
+  handleUpdateValues: (e: FormEvent) => void;
+}
+
+export interface ImageUploadFormProps {
+  onUpdateFile: (data: ImageData, index: number) => void;
+}
+
 export interface ErrorsUpdateValuesImage {
-  doc_wrong_positive_cells?: string[];
-  doc_wrong_negative_cells?: string[];
-  doc_add_positive_cells?: string[];
-  doc_add_negative_cells?: string[];
+  [key: string]: string; // Esto asegura que ErrorsUpdateValuesImage sea compatible con Record<string, string>
 }

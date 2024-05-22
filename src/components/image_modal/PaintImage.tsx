@@ -2,8 +2,7 @@ import { PaintableImageProps } from '@/types/components/images/interfaces';
 import { useRef, useEffect, useState } from 'react';
 
 
-
-const PaintableImage: React.FC<PaintableImageProps> = ({ src, color }) => {
+const PaintableImage: React.FC<PaintableImageProps> = ({ src,  color, onSave }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isPainting, setIsPainting] = useState(false);
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | undefined>(undefined);
@@ -75,6 +74,19 @@ const PaintableImage: React.FC<PaintableImageProps> = ({ src, color }) => {
       context.stroke();
     }
   };
+
+  useEffect(() => {
+    const handleSave = () => {
+      if (canvasRef.current) {
+        onSave(canvasRef.current.toDataURL());
+      }
+    };
+
+    window.addEventListener('beforeunload', handleSave);
+    return () => {
+      window.removeEventListener('beforeunload', handleSave);
+    };
+  }, [onSave]);
 
   return (
     <canvas

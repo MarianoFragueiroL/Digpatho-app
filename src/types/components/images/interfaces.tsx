@@ -1,10 +1,11 @@
 export interface ImageModalProps {
     src: string;
-    alt: string;
+    onImageSave: (dataUrl: string) => void;
   }
 
 
 export interface PaintableImageProps {
     src: string;
     color: string;
+    onSave: (dataUrl: string) => void;
   }

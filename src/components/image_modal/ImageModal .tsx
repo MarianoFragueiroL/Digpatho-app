@@ -9,9 +9,10 @@ Modal.setAppElement('#__next');
 
 
 
-const ImageModal: React.FC<ImageModalProps> = ({ src, alt }) => {
+const ImageModal: React.FC<ImageModalProps> = ({ src, onImageSave}) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [color, setColor] = useState('#ff0000');
+  const [imageDataUrl, setImageDataUrl] = useState(src);
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -19,6 +20,10 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, alt }) => {
 
   const closeModal = () => {
     setModalIsOpen(false);
+    onImageSave(imageDataUrl);
+  };
+  const handleSave = (dataUrl: string) => {
+    setImageDataUrl(dataUrl);
   };
 
   const handleColorChange = (selectedColor: string) => {
@@ -66,7 +71,7 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, alt }) => {
             </div>
 
         </div>
-        <PaintableImage src={src} color={color} />
+        <PaintableImage src={src} color={color} onSave={handleSave}/>
         </Modal>
     </div>
   );
