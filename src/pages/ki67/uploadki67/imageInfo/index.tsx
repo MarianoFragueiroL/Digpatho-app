@@ -21,26 +21,6 @@ const ImageInfo: React.FC<ImageInfoProps> = ({
         <div>
           <ImageModal src={modifiedImage} onImageSave={handleImageSave} />
         </div>
-        <div className="d-flex">
-          <div className="d-flex flex-column">
-            <label className="formLabel">IA KI67</label>
-            <input type="text" value={image.ia_ki67} disabled />
-          </div>
-          <div className="d-flex flex-column">
-            <label className="formLabel">IA TOTAL CELLS</label>
-            <input type="text" value={image.ia_total_cells} disabled />
-          </div>
-        </div>
-        <div className="d-flex">
-          <div className="d-flex flex-column">
-            <label className="formLabel">IA POSITVE CELLS</label>
-            <input type="text" value={image.ia_positive_cells} disabled />
-          </div>
-          <div className="d-flex flex-column">
-            <label className="formLabel">IA NEGATIVE CELLS</label>
-            <input type="text" value={image.ia_negative_cells} disabled />
-          </div>
-        </div>
       </div>
     </div>
   );
