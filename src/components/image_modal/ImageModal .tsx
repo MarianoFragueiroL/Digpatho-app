@@ -1,15 +1,16 @@
+import { ImageModalProps } from '@/types/components/images/interfaces';
 import { useState } from 'react';
 import Modal from 'react-modal';
-import PaintableImage from './PaintImage'; // Ajusta la ruta según sea necesario
-import { ImageModalProps } from '@/types/components/images/interfaces';
+import PaintableImage from './PaintImage';
 import styles from './Imagemodal.module.css';
+
 
 // Configuración para que el modal se monte en el elemento root
 Modal.setAppElement('#__next');
 
 
 
-const ImageModal: React.FC<ImageModalProps> = ({ src, onImageSave}) => {
+const ImageModal: React.FC<ImageModalProps> = ({ src, onImageSave }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [color, setColor] = useState('#ff0000');
   const [imageDataUrl, setImageDataUrl] = useState(src);
@@ -20,28 +21,29 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, onImageSave}) => {
 
   const closeModal = () => {
     setModalIsOpen(false);
-    onImageSave(imageDataUrl);
-  };
-  const handleSave = (dataUrl: string) => {
-    setImageDataUrl(dataUrl);
+    onImageSave(imageDataUrl); // Save the modified image when closing the modal
   };
 
   const handleColorChange = (selectedColor: string) => {
     setColor(selectedColor);
   };
 
-  return (
-    <div className='d-flex'>
-        <img className='w-100' src={src} onClick={openModal} style={{ cursor: 'pointer' }} />
+  const handleSave = (dataUrl: string) => {
+    setImageDataUrl(dataUrl);
+  };
 
-        <Modal
+  return (
+    <div>
+      <img className='w-100' src={src}  onClick={openModal} style={{ cursor: 'pointer' }} />
+
+      <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={{
-            overlay: {
+          overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.75)',
-            },
-            content: {
+          },
+          content: {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -55,9 +57,9 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, onImageSave}) => {
             padding: 0,
             border: 'none',
             background: 'none',
-            },
+          },
         }}
-        >
+      >
         <div className={styles.topcontainer} >
             <div className={styles.colorscontainer} >
                 <div className='d-flex m-3'>
@@ -71,8 +73,8 @@ const ImageModal: React.FC<ImageModalProps> = ({ src, onImageSave}) => {
             </div>
 
         </div>
-        <PaintableImage src={src} color={color} onSave={handleSave}/>
-        </Modal>
+        <PaintableImage src={src} color={color} onSave={handleSave} />
+      </Modal>
     </div>
   );
 };

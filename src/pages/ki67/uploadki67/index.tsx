@@ -1,5 +1,4 @@
 import React, { useState, FormEvent } from 'react';
-
 import loginAuth from '@/utils/auth/loginAuth';
 import { ImageData, ErrorsUpdateValuesImage } from '../../../types/ki67/interfaces';
 import styles from './uploadki67.module.css';
@@ -9,6 +8,8 @@ import { allUrl } from '@/types/urlsvariables';
 import ImageUploadForm from '@/components/ki67/ImageUploadForm';
 import ImageInfo from './imageInfo';
 import ImageDetailsForm from '@/components/ki67/ImageDetailsForm';
+import { base64ToFile } from '@/utils/base64ToFile';
+
 
 const Ki67Page: React.FC = () => {
   const [imagesData, setImagesData] = useState<ImageData[]>([]);
@@ -18,6 +19,13 @@ const Ki67Page: React.FC = () => {
 
   const handleImageSave = (dataUrl: string) => {
     setModifiedImage(dataUrl);
+    setImagesData(prevImages =>
+      prevImages.map(image =>
+        image.url_ia_image_result === modifiedImage
+          ? { ...image, url_ia_image_result: dataUrl }
+          : image
+      )
+    );
   };
 
   const handleUpdatedImage = (data: ImageData, index: number) => {
@@ -82,17 +90,25 @@ const Ki67Page: React.FC = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await API.put(`${allUrl.bkUpdateki67ImageData}${imagesData[0].id}`, imagesData[0]);
-      console.log(response);
-      if (response.status) {
-        console.log(response);
+      const formData = new FormData();
+      const imageFile = base64ToFile(modifiedImage, 'edited-image.png');
+
+      formData.append('image_upload', imageFile);
+      formData.append('data', JSON.stringify(imagesData[0]));
+      const response = await API.put(`${allUrl.bkUpdateki67ImageData}${imagesData[0].id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      if (response.status == 200) {
+        console.log(response.status);
+      }
+      else{
+        console.log('Show error popup');
       }
     } catch (err: any) {
-      console.log(err);
       if (err.response && err.response.data) {
         setErrors(err.response.data);
       }
-      console.log('Failed to update');
+      console.log('Failed to update',err);
     } finally {
       setLoading(false);
     }

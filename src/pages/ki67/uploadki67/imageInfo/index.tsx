@@ -13,7 +13,7 @@ const ImageInfo: React.FC<ImageInfoProps> = ({
   errors
 }) => {
   return (
-    <div className="d-flex justify-content-end">
+    <div className="d-flex justify-content-center">
       <div className="col-4 m-3">
         <img className="w-100" src={`${image.url_image_upload}`} alt="Original" />
       </div>

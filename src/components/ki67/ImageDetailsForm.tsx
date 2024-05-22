@@ -12,7 +12,7 @@ const ImageDetailsForm: React.FC<ImageDetailsFormProps> = ({
   handleUpdateValues,
 }) => {
   return (
-    <form className="d-flex flex-wrap" onSubmit={handleUpdateValues}>
+    <form className="d-flex flex-wrap justify-content-center" onSubmit={handleUpdateValues}>
       <div className="d-flex flex-column col-4 m-3">
         <div className="d-flex flex-column">
           <label className={styles.formLabel}>KI67</label>

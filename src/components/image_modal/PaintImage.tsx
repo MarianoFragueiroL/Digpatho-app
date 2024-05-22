@@ -2,7 +2,8 @@ import { PaintableImageProps } from '@/types/components/images/interfaces';
 import { useRef, useEffect, useState } from 'react';
 
 
-const PaintableImage: React.FC<PaintableImageProps> = ({ src,  color, onSave }) => {
+
+const PaintableImage: React.FC<PaintableImageProps> = ({ src, color, onSave }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isPainting, setIsPainting] = useState(false);
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number } | undefined>(undefined);
@@ -11,6 +12,7 @@ const PaintableImage: React.FC<PaintableImageProps> = ({ src,  color, onSave }) 
     const canvas = canvasRef.current;
     const context = canvas?.getContext('2d');
     const image = new Image();
+    image.crossOrigin = 'Anonymous'; // Habilitar CORS si es necesario
     image.src = src;
 
     image.onload = () => {
@@ -43,6 +45,9 @@ const PaintableImage: React.FC<PaintableImageProps> = ({ src,  color, onSave }) 
   const exitPaint = () => {
     setIsPainting(false);
     setMousePosition(undefined);
+    if (canvasRef.current) {
+      onSave(canvasRef.current.toDataURL());
+    }
   };
 
   const getMousePosition = (event: React.MouseEvent): { x: number; y: number } | undefined => {
@@ -75,28 +80,18 @@ const PaintableImage: React.FC<PaintableImageProps> = ({ src,  color, onSave }) 
     }
   };
 
-  useEffect(() => {
-    const handleSave = () => {
-      if (canvasRef.current) {
-        onSave(canvasRef.current.toDataURL());
-      }
-    };
-
-    window.addEventListener('beforeunload', handleSave);
-    return () => {
-      window.removeEventListener('beforeunload', handleSave);
-    };
-  }, [onSave]);
 
   return (
-    <canvas
-      ref={canvasRef}
-      onMouseDown={startPaint}
-      onMouseMove={paint}
-      onMouseUp={exitPaint}
-      onMouseLeave={exitPaint}
-      style={{ cursor: 'crosshair', border: '1px solid black' }}
-    />
+    <div>
+      <canvas
+        ref={canvasRef}
+        onMouseDown={startPaint}
+        onMouseMove={paint}
+        onMouseUp={exitPaint}
+        onMouseLeave={exitPaint}
+        style={{ cursor: 'crosshair', border: '1px solid black' }}
+      />
+    </div>
   );
 };
 
