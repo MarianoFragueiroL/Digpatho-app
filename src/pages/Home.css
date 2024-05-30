@@ -70,3 +70,31 @@
   top:80%;
   left:45%;
 }
+.content-wrapper-info-about{
+  display: flex;
+  height: 30VH;
+  padding: 3%;
+}
+.c-info-about-left-text{
+  white-space: pre-wrap;
+  transition-timing-function: ease;
+  transition-duration: 0.65s;
+  transition-delay: 0.528302s;
+  animation-duration: 0.65s;
+
+}
+.c-info-about-left{
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+}
+.c-info-about-mid{
+  display: flex;
+  flex-direction: column;
+  flex: 5;
+}
+.c-info-about-right{
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+}

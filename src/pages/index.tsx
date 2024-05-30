@@ -43,9 +43,32 @@ const Home = () => {
           </div>
         </div>
         </div>
-        <button className='background-pause-button visible'></button>
-        <button className='background-pause-button paused'></button>
-
+      </div>
+      <div className='content-wrapper-info-about'>
+        <div className='c-info-about-left'> 
+          <h2>Sobre nosotros
+          </h2>
+        </div>
+        <div className='c-info-about-mid'>
+          <div className=''>
+            <h4 className='c-info-about-left-text'>Nuestro equipo trabaja en un espacio de generación de conocimiento multidisciplinario y multicultural. A partir de la colaboración entre
+              expertos en Anatomía Patológica, Bioingeniería, gestión y análisis de imágenes microscópicas, se crean y estudian nuestros modelos, generando 
+              las herramientas de diagnóstico basadas en IA.</h4>
+            <h4 className='c-info-about-left-text'>A su vez, consideramos que es esencial la asistencia en la formación de nuevos especialistas médicos. Es por eso que nuestra suite de herramientas 
+              cuenta con módulos de entrenamiento, en el cual los patólogos en formación pueden afianzar su experiencia diagnóstica a partir de los resultados 
+              de nuestros modelos.</h4>
+          </div>
+        </div>
+        <div className='c-info-about-right'>
+          <div className=''>
+            <h4 className='c-info-about-right-text'>
+            Finalmente, en Digpatho creemos que la transparencia de los métodos utilizados en nuestros desarrollos debe estar disponible y sujeta a una revisión 
+            constante por parte de la comunidad científica. 
+            Es por ello que contamos con espacios mediante los cuales los usuarios pueden acceder al background de los modelos de IA que utilizan, al mismo tiempo 
+            que divulgamos nuestros resultados en eventos y en publicaciones científicas reconocidas.
+            </h4>
+          </div>
+        </div>
       </div>
       </>
     );
