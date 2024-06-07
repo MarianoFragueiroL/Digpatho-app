@@ -1,10 +1,20 @@
+.navbarLinks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.navbarLinks li {
+  margin: 0;
+}
 .navbar {
     display: flex;
     align-items: center;
     padding: 1rem;
     background-color: #ffffff;
   }
-  
+  .navIconLinkContainer{
+    padding: 4%;
+  }
   .navbarImgcontainer{
     flex: 2;
   }
@@ -18,9 +28,12 @@
     display: flex;
     text-decoration:none;
     justify-content: space-between;
+    background-color:#9e81a0 ;
   }
   .navConfigEnd{
     width: 10%;
+    display: flex;
+    align-items: center;
   }
   .navbarLinks {
     list-style: none;
@@ -29,6 +42,8 @@
   }
   
   .navbarLink {
+    display: flex;
+    align-items: center;
     text-decoration: none;
     color: #000000; 
     position: relative;
@@ -92,4 +107,7 @@
   
   .dropdownMenu li a:hover {
     background-color: #ddd;
+  }
+  .height{
+    height: 100%;
   }

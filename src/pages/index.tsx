@@ -50,7 +50,7 @@ const Home = () => {
           </h2>
         </div>
         <div className='c-info-about-mid'>
-          <div className=''>
+          <div className='col-9'>
             <h4 className='c-info-about-left-text'>Nuestro equipo trabaja en un espacio de generación de conocimiento multidisciplinario y multicultural. A partir de la colaboración entre
               expertos en Anatomía Patológica, Bioingeniería, gestión y análisis de imágenes microscópicas, se crean y estudian nuestros modelos, generando 
               las herramientas de diagnóstico basadas en IA.</h4>

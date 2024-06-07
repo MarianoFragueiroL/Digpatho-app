@@ -2,9 +2,15 @@
     position: relative;
     display: inline-block;
   }
-
+.navbarLinks li {
+    margin: 0;
+}
+.navbarLinks ul {
+    margin: 0;
+}
 .c_Container{
     min-width: 100px;
+    height: 100%;
   }
 .iconLabelContainer {
 display: flex;
@@ -20,7 +26,7 @@ cursor: pointer;
     display: block;
     position: absolute;
     top: 100%;
-    right: -50%;
+    right: -400%;
     background-color: white;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
